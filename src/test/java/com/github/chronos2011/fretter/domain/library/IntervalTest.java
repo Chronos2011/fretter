@@ -10,7 +10,8 @@ public class IntervalTest {
 		assertEquals(Interval.TRIT, Interval.from(6));
 	}
 
-	@Test public void testIntervalFromPitches() {
+	@Test
+	public void testIntervalFromPitches() {
 		assertEquals(Interval.PER5, Interval.from(Pitch.A_4, Pitch.E_5));
 	}
 }
