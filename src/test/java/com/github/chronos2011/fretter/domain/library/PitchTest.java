@@ -12,7 +12,7 @@ public class PitchTest {
 
 	@Test
 	public void testGetNoteName() {
-		assertEquals("D\u266F\u2088", Pitch.DS8.getNoteName());
+		assertEquals("D\u266F\u2088", Pitch.DS8.getName());
 	}
 
 	@Test

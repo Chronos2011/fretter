@@ -91,10 +91,10 @@ public class BaseSolverTest {
 	public void testFindUp() throws DomainException {
 		solver.createBoard();
 		solver.tuneBoard();
-		Fret fret = solver.findUp(new Position(0, 6), f -> f.pitch.getNoteName().charAt(0) == 'E');
+		Fret fret = solver.findUp(new Position(0, 6), f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(0, fret.position.stringIndex);
 		assertEquals(12, fret.position.fretIndex);
-		fret = solver.findUp(new Position(6), f -> f.pitch.getNoteName().charAt(0) == 'E');
+		fret = solver.findUp(new Position(6), f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(1, fret.position.stringIndex);
 		assertEquals(7, fret.position.fretIndex);
 	}
@@ -103,10 +103,10 @@ public class BaseSolverTest {
 	public void testFindUpDown() throws DomainException {
 		solver.createBoard();
 		solver.tuneBoard();
-		Fret fret = solver.findUpDown(new Position(0, 6), f -> f.pitch.getNoteName().charAt(0) == 'E');
+		Fret fret = solver.findUpDown(new Position(0, 6), f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(0, fret.position.stringIndex);
 		assertEquals(12, fret.position.fretIndex);
-		fret = solver.findUpDown(new Position(4), f -> f.pitch.getNoteName().charAt(0) == 'E');
+		fret = solver.findUpDown(new Position(4), f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(4, fret.position.stringIndex);
 		assertEquals(5, fret.position.fretIndex);
 	}
@@ -115,10 +115,10 @@ public class BaseSolverTest {
 	public void testFind_Up() throws DomainException {
 		solver.createBoard();
 		solver.tuneBoard();
-		Fret fret = solver.find(new Position(0, 6), true, false, f -> f.pitch.getNoteName().charAt(0) == 'E');
+		Fret fret = solver.find(new Position(0, 6), true, false, f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(0, fret.position.stringIndex);
 		assertEquals(12, fret.position.fretIndex);
-		fret = solver.find(new Position(6), true, false, f -> f.pitch.getNoteName().charAt(0) == 'E');
+		fret = solver.find(new Position(6), true, false, f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(1, fret.position.stringIndex);
 		assertEquals(7, fret.position.fretIndex);
 	}
@@ -127,10 +127,10 @@ public class BaseSolverTest {
 	public void testFind_Down() throws DomainException {
 		solver.createBoard();
 		solver.tuneBoard();
-		Fret fret = solver.find(new Position(0, 6), false, true, f -> f.pitch.getNoteName().charAt(0) == 'E');
+		Fret fret = solver.find(new Position(0, 6), false, true, f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(0, fret.position.stringIndex);
 		assertEquals(0, fret.position.fretIndex);
-		fret = solver.find(new Position(6), false, true, f -> f.pitch.getNoteName().charAt(0) == 'E');
+		fret = solver.find(new Position(6), false, true, f -> f.pitch.getName().charAt(0) == 'E');
 		assertEquals(4, fret.position.stringIndex);
 		assertEquals(5, fret.position.fretIndex);
 	}

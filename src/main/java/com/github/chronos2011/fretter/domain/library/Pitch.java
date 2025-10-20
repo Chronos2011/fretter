@@ -1,5 +1,8 @@
 package com.github.chronos2011.fretter.domain.library;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.github.chronos2011.fretter.application.Configuration;
 
 /**
@@ -10,7 +13,7 @@ import com.github.chronos2011.fretter.application.Configuration;
  * @see <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">Scientific pitch notation</a>
  * @see <a href="https://en.wikipedia.org/wiki/MIDI_tuning_standard">MIDI tuning standard</a>
  */
-public enum Pitch {
+public enum Pitch implements Nameable {
 	UNKNOWN(-1, 0),
 	C_M(0, 8.18),
 	CSM(1, 8.66),
@@ -220,11 +223,17 @@ public enum Pitch {
 	}
 
 	/**
-	 * Returns the human-readable not name of the Pitch.
+	 * Raises the pitch by an amount of half-steps.
 	 *
-	 * @return the human-readable not name of the Pitch
+	 * @param steps the amount of half-steps to raise
+	 * @return the raised Pitch
 	 */
-	public String getNoteName() {
+	public Pitch raise(int steps) {
+		return from(midiIndex + steps);
+	}
+
+	@Override
+	public String getName() {
 		if (this == UNKNOWN)
 			return "???";
 		String base = name().substring(0, 1);
@@ -260,13 +269,8 @@ public enum Pitch {
 		return base + modifier + octave;
 	}
 
-	/**
-	 * Raises the pitch by an amount of half-steps.
-	 *
-	 * @param steps the amount of half-steps to raise
-	 * @return the raised Pitch
-	 */
-	public Pitch raise(int steps) {
-		return from(midiIndex + steps);
+	@Override
+	public List<String> getAlternativeNames() {
+		return Collections.emptyList();
 	}
 }

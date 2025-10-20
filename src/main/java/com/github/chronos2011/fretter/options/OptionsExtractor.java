@@ -366,7 +366,7 @@ public class OptionsExtractor {
                 names = Arrays.asList(Chord.values()).stream().map(chord -> chord.name()).sorted();
                 break;
             case "Pitch":
-                names = Arrays.asList(Pitch.values()).stream().map(pitch -> pitch.name()).sorted();
+                names = Arrays.asList(Pitch.values()).stream().map(pitch -> pitch.getName()).sorted();
                 break;
             case "FretLabeling":
                 names = Arrays.asList(FretLabeling.values()).stream().map(label -> label.name()).sorted();
