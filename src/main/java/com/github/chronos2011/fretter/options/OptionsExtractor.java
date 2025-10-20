@@ -195,7 +195,7 @@ public class OptionsExtractor {
         boardOptions.fretCount = commandLine.getParsedOptionValue("fret-count", 24);
         if (boardOptions.fretCount < 1)
             throw new DomainException("Fret count must be >= 1");
-        boardOptions.tuning = (Tuning) getParsedEnum("tuning", Tuning.class, Tuning.EADGBE);
+        boardOptions.tuning = (Tuning) getParsedEnum("tuning", Tuning.class, Tuning.STANDARD_GUITAR);
         return boardOptions;
     }
 

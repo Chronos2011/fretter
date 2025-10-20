@@ -50,4 +50,9 @@ public enum Chord {
 			intervals.add(Interval.from(step));
 		this.intervalList = Collections.unmodifiableList(intervals);
 	}
+
+	@Override
+	public String toString() {
+		return name().toLowerCase().replace('_', ' ');
+	}
 }

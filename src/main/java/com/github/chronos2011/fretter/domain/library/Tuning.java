@@ -39,4 +39,9 @@ public enum Tuning {
 	private Tuning(Pitch[] pitches) {
 		this.pitches = Collections.unmodifiableList(Arrays.asList(pitches));
 	}
+
+	@Override
+	public String toString() {
+		return name().toLowerCase().replace('_', ' ');
+	}
 }
