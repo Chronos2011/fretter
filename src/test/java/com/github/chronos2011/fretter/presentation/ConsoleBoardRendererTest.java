@@ -40,8 +40,7 @@ public class ConsoleBoardRendererTest {
 	@Test
 	public void testRender() {
 		renderer.render(builder, applicationOptions, board);
-		assertEquals("\n" + //
-				" 0     1       2       3       4   \n" + //
+		assertEquals(" 0     1       2       3       4   \n" + //
 				"\n" + //
 				"   ├───────┼───────┼───────┼───────┼\n" + //
 				"   ├───────┼───────┼───────┼───────┼\n" + //
@@ -57,8 +56,7 @@ public class ConsoleBoardRendererTest {
 	public void testRender_NonContiguous() {
 		applicationOptions.renderOptions.renderWindow.start = 2;
 		renderer.render(builder, applicationOptions, board);
-		assertEquals("\n" + //
-				" 0           2       3       4   \n" + //
+		assertEquals(" 0           2       3       4   \n" + //
 				"\n" + //
 				"   ├ ··· ┼───────┼───────┼───────┼\n" + //
 				"   ├ ··· ┼───────┼───────┼───────┼\n" + //
@@ -85,8 +83,7 @@ public class ConsoleBoardRendererTest {
 		board.frets[2][3].interval = Interval.PER5;
 		board.frets[3][4].interval = Interval.MIN7;
 		renderer.render(builder, applicationOptions, board);
-		assertEquals("\n" + //
-				" 0     1       2       3       4   \n" + //
+		assertEquals(" 0     1       2       3       4   \n" + //
 				"\n" + //
 				"   ├───────┼───────┼───────┼──♭7 ──┼\n" + //
 				"   ├───────┼───────┼── 5 ──┼───────┼\n" + //

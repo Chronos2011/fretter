@@ -38,9 +38,7 @@ public class Fretter {
         String name = Configuration.applicationName;
         String version = Configuration.applicationVersion;
         String description = Configuration.applicationDescription;
-        System.out.println();
-        System.out.println(name + " v" + version + " - " + description);
-        System.out.println();
+        System.out.println("\n" + name + " v" + version + " - " + description + "\n\n");
     }
 
     private final ApplicationOptions applicationOptions;

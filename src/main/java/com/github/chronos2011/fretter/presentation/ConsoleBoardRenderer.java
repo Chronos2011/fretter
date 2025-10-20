@@ -22,7 +22,6 @@ public class ConsoleBoardRenderer implements BoardRenderer {
         final FretRenderer fretRenderer = new ConsoleFretRenderer(applicationOptions);
         final FretRenderHints hints = calculateFretRenderHints(applicationOptions, board);
         // Render header
-        builder.append(NEWLINE);
         if (hints.open) {
             builder.append(String.format("%2d ", 0));
             if (hints.from != 1)

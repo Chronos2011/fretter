@@ -14,6 +14,7 @@ import com.github.chronos2011.fretter.domain.*;
 import com.github.chronos2011.fretter.domain.library.*;
 import com.github.chronos2011.fretter.domain.solver.Solution;
 import com.github.chronos2011.fretter.options.ApplicationOptions;
+import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 import com.github.chronos2011.fretter.options.BoardOptions;
 import com.github.chronos2011.fretter.options.ChordOptions;
 import com.github.chronos2011.fretter.options.RenderOptions;
@@ -28,6 +29,7 @@ public class ConsoleSolutionRendererTest {
 	@Before
 	public void setup() {
 		applicationOptions = new ApplicationOptions();
+		applicationOptions.operation = Operation.BOARD;
 		applicationOptions.renderOptions = new RenderOptions();
 		applicationOptions.renderOptions.renderWindow = new FretWindow();
 		applicationOptions.renderOptions.renderWindow.start = 0;
@@ -48,7 +50,8 @@ public class ConsoleSolutionRendererTest {
 	@Test
 	public void testRenderBoard() {
 		StringBuilder builder = renderer.render(applicationOptions, solution);
-		assertEquals("\n" + //
+		assertEquals("Board (standard ukulele tuning, 4 frets)\n" + //
+				"\n" + //
 				" 0     1       2       3       4   \n" + //
 				"\n" + //
 				"   ├───────┼───────┼───────┼───────┼\n" + //
@@ -85,7 +88,9 @@ public class ConsoleSolutionRendererTest {
 		solution.fingerings.add(fingering0);
 		solution.fingerings.add(fingering1);
 		StringBuilder builder = renderer.render(applicationOptions, solution);
-		assertEquals("Showing fingerings 1 through 1 (of 2)\n" + //
+		assertEquals("Board (standard ukulele tuning, 4 frets)\n" + //
+				"\n" + //
+				"Showing fingerings 1 through 1 (of 2)\n" + //
 				"\n" + //
 				" 0           4   \n" + //
 				"\n" + //
@@ -120,7 +125,9 @@ public class ConsoleSolutionRendererTest {
 		solution = new Solution(board, new ArrayList<>(), new ArrayList<String>(), new ArrayList<String>());
 		solution.fingerings.add(fingering);
 		StringBuilder builder = renderer.render(applicationOptions, solution);
-		assertEquals("Showing fingerings 1 through 1 (of 1)\n" + //
+		assertEquals("Board (standard ukulele tuning, 4 frets)\n" + //
+				"\n" + //
+				"Showing fingerings 1 through 1 (of 1)\n" + //
 				"\n" + //
 				" 0           2       3       4   \n" + //
 				"\n" + //
@@ -140,7 +147,8 @@ public class ConsoleSolutionRendererTest {
 		solution.warnings.add("W0");
 		solution.warnings.add("W1");
 		StringBuilder builder = renderer.render(applicationOptions, solution);
-		assertEquals("\n" + //
+		assertEquals("Board (standard ukulele tuning, 4 frets)\n" + //
+				"\n" + //
 				" 0     1       2       3       4   \n" + //
 				"\n" + //
 				"   ├───────┼───────┼───────┼───────┼\n" + //
@@ -161,7 +169,8 @@ public class ConsoleSolutionRendererTest {
 		solution.hints.add("H0");
 		solution.hints.add("H1");
 		StringBuilder builder = renderer.render(applicationOptions, solution);
-		assertEquals("\n" + //
+		assertEquals("Board (standard ukulele tuning, 4 frets)\n" + //
+				"\n" + //
 				" 0     1       2       3       4   \n" + //
 				"\n" + //
 				"   ├───────┼───────┼───────┼───────┼\n" + //

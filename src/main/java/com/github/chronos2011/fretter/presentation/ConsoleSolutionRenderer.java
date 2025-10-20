@@ -20,7 +20,10 @@ public class ConsoleSolutionRenderer implements SolutionRenderer {
 	public StringBuilder render(ApplicationOptions applicationOptions, Solution solution) {
 		StringBuilder builder = new StringBuilder();
 		RenderOptions renderOptions = applicationOptions.renderOptions;
+		TitleGenerator titler = new TitleGenerator(applicationOptions);
 		BoardRenderer renderer = new ConsoleBoardRenderer();
+		builder.append(titler.generateTitle());
+		builder.append("\n\n");
 		if (solution.fingerings == null)
 			renderer.render(builder, applicationOptions, solution.board);
 		else {
@@ -32,6 +35,7 @@ public class ConsoleSolutionRenderer implements SolutionRenderer {
 				int indexTo = Math.min(count, (renderOptions.page + 1) * renderOptions.itemCount);
 				builder.append(String.format("Showing fingerings %d through %d", indexFrom + 1, indexTo));
 				builder.append(String.format(" (of %d)\n", count));
+				builder.append("\n");
 				for (int fingeringIndex = indexFrom; fingeringIndex < indexTo; fingeringIndex++) {
 					Fingering fingering = solution.fingerings.get(fingeringIndex);
 					Board fingeringBoard = fingering.asBoard(applicationOptions.boardOptions);
