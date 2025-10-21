@@ -29,7 +29,7 @@ public class ChordSolver extends BaseSolver {
 		createBoard();
 		tuneBoard();
 		ChordOptions options = applicationOptions.chordOptions;
-		visitBoard(fret -> applyIntervalList(options.chord.intervalList, options.pitch, fret));
+		visitBoard(fret -> applyIntervalList(options.chord.intervalList, options.pitchClass, fret));
 		try {
 			List<Fingering> fingerings = createCombinations();
 			fingerings = removeBroken(fingerings);

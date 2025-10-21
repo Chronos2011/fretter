@@ -22,7 +22,7 @@ public class ArpeggioSolver extends BaseSolver {
 		createBoard();
 		tuneBoard();
 		ArpeggioOptions options = applicationOptions.arpeggioOptions;
-		visitBoard(fret -> applyIntervalList(options.chord.intervalList, options.pitch, fret));
+		visitBoard(fret -> applyIntervalList(options.chord.intervalList, options.pitchClass, fret));
 		return new Solution(board, null, warnings, hints);
 	}
 }

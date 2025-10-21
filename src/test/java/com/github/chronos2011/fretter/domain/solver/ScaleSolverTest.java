@@ -36,7 +36,7 @@ public class ScaleSolverTest {
 	public void testSolve() {
 		applicationOptions.scaleOptions = new ScaleOptions();
 		applicationOptions.scaleOptions.scale = Scale.fromName("major");
-		applicationOptions.scaleOptions.pitch = Pitch.C_4;
+		applicationOptions.scaleOptions.pitchClass = PitchClass.C_;
 		applicationOptions.scaleOptions.pattern = null;
 		applicationOptions.scaleOptions.window = null;
 		ScaleSolver solver = new ScaleSolver(applicationOptions);
@@ -78,7 +78,7 @@ public class ScaleSolverTest {
 	public void testSolve_WorkingWindow() {
 		applicationOptions.scaleOptions = new ScaleOptions();
 		applicationOptions.scaleOptions.scale = Scale.fromName("major");
-		applicationOptions.scaleOptions.pitch = Pitch.C_4;
+		applicationOptions.scaleOptions.pitchClass = PitchClass.C_;
 		applicationOptions.scaleOptions.pattern = null;
 		applicationOptions.scaleOptions.window = new FretWindow();
 		applicationOptions.scaleOptions.window.start = 8;
@@ -132,7 +132,7 @@ public class ScaleSolverTest {
 	public void testSolve_DistributionPattern() throws IOException {
 		applicationOptions.scaleOptions = new ScaleOptions();
 		applicationOptions.scaleOptions.scale = Scale.fromName("major");
-		applicationOptions.scaleOptions.pitch = Pitch.C_4;
+		applicationOptions.scaleOptions.pitchClass = PitchClass.C_;
 		applicationOptions.scaleOptions.pattern = new ScaleOptions.DistributionPattern();
 		applicationOptions.scaleOptions.pattern.position = new Position(0, 8);
 		applicationOptions.scaleOptions.pattern.notesPerString = 3;
@@ -186,7 +186,7 @@ public class ScaleSolverTest {
 	public void testSolve_Throws() throws DomainException {
 		applicationOptions.scaleOptions = new ScaleOptions();
 		applicationOptions.scaleOptions.scale = Scale.fromName("major");
-		applicationOptions.scaleOptions.pitch = Pitch.C_4;
+		applicationOptions.scaleOptions.pitchClass = PitchClass.C_;
 		applicationOptions.scaleOptions.pattern = new ScaleOptions.DistributionPattern();
 		applicationOptions.scaleOptions.pattern.position = new Position(0, 8);
 		applicationOptions.scaleOptions.pattern.notesPerString = 3;

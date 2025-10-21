@@ -19,7 +19,7 @@ public class ArpeggioSolverTest {
 		applicationOptions.boardOptions.tuning = Tuning.fromName("EADGBE");
 		applicationOptions.arpeggioOptions = new ArpeggioOptions();
 		applicationOptions.arpeggioOptions.chord = Chord.fromName("maj7");
-		applicationOptions.arpeggioOptions.pitch = Pitch.C_4;
+		applicationOptions.arpeggioOptions.pitchClass = PitchClass.C_;
 		ArpeggioSolver solver = new ArpeggioSolver(applicationOptions);
 		Solution solution = solver.solve();
 		Board board = solution.board;

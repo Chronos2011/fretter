@@ -1,7 +1,7 @@
 package com.github.chronos2011.fretter.options;
 
 import com.github.chronos2011.fretter.domain.library.Chord;
-import com.github.chronos2011.fretter.domain.library.Pitch;
+import com.github.chronos2011.fretter.domain.library.PitchClass;
 import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 
 /**
@@ -10,6 +10,6 @@ import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 public class ArpeggioOptions {
 	/** {@link Chord} to be disassembled into an arpeggio */
 	public Chord chord;
-	/** {@link Pitch} of the {@link Chord}; the octave is irrelevant */
-	public Pitch pitch;
+	/** {@link PitchClass} of the {@link Chord} */
+	public PitchClass pitchClass;
 }

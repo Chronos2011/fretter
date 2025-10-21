@@ -3,7 +3,7 @@ package com.github.chronos2011.fretter.options;
 import com.github.chronos2011.fretter.domain.FretWindow;
 import com.github.chronos2011.fretter.domain.Position;
 import com.github.chronos2011.fretter.domain.library.Degree;
-import com.github.chronos2011.fretter.domain.library.Pitch;
+import com.github.chronos2011.fretter.domain.library.PitchClass;
 import com.github.chronos2011.fretter.domain.library.Scale;
 import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 
@@ -27,8 +27,8 @@ public class ScaleOptions {
 
 	/** {@link Scale} to be generated */
 	public Scale scale;
-	/** {@link Pitch} of the {@link Scale}; the octave is irrelevant */
-	public Pitch pitch;
+	/** {@link PitchClass} of the {@link Scale} */
+	public PitchClass pitchClass;
 	/** Defines a "working window" to be used; mutually exclusive with a {@link DistributionPattern} */
 	public FretWindow window;
 	/** Defines a {@link DistributionPattern} to be used; mutually exclusive with a "working window" */

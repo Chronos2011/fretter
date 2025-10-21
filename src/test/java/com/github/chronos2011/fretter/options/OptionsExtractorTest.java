@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.github.chronos2011.fretter.domain.Position;
 import com.github.chronos2011.fretter.domain.library.Chord;
-import com.github.chronos2011.fretter.domain.library.Pitch;
+import com.github.chronos2011.fretter.domain.library.PitchClass;
 import com.github.chronos2011.fretter.domain.library.Scale;
 import com.github.chronos2011.fretter.domain.library.Tuning;
 import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
@@ -203,21 +203,21 @@ public class OptionsExtractorTest {
 	@Test
 	public void testExtract_Scale() throws IOException {
 		applicationOptions = optionsExtractor
-				.extract(new String[] { "-o", "scale", "-t", "DADGAD", "-s", "DORIAN", "-r", "E_4" });
+				.extract(new String[] { "-o", "scale", "-t", "DADGAD", "-s", "DORIAN", "-r", "E" });
 		assertEquals(Operation.SCALE, applicationOptions.operation);
 		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
 		assertEquals(Scale.fromName("dorian"), applicationOptions.scaleOptions.scale);
-		assertEquals(Pitch.E_4, applicationOptions.scaleOptions.pitch);
+		assertEquals(PitchClass.E_, applicationOptions.scaleOptions.pitchClass);
 	}
 
 	@Test
 	public void testExtract_Scale_DistributionPattern() throws IOException {
 		applicationOptions = optionsExtractor
-				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p0,12", "-n3" });
+				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p0,12", "-n3" });
 		assertEquals(new Position(0, 12), applicationOptions.scaleOptions.pattern.position);
 		assertEquals(3, applicationOptions.scaleOptions.pattern.notesPerString);
 		applicationOptions = optionsExtractor
-				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p12", "-n3" });
+				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p12", "-n3" });
 		assertEquals(new Position(12), applicationOptions.scaleOptions.pattern.position);
 		assertEquals(3, applicationOptions.scaleOptions.pattern.notesPerString);
 	}
@@ -227,7 +227,7 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p1,2,3", "-n3" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p1,2,3", "-n3" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
@@ -237,7 +237,7 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p7,0", "-n3" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p7,0", "-n3" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
@@ -247,10 +247,10 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p0,30", "-n3" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p0,30", "-n3" });
 		verify(mock, times(1)).printHelpAndExit(any());
 		clearInvocations(mock);
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p30", "-n3" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p30", "-n3" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
@@ -260,10 +260,10 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p0,6o", "-n3" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p0,6o", "-n3" });
 		verify(mock, times(1)).printHelpAndExit(any());
 		clearInvocations(mock);
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p6o", "-n3" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p6o", "-n3" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
@@ -272,14 +272,14 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p0,12", "-n6" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p0,12", "-n6" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
 	@Test
 	public void testExtract_Scale_WorkingWindow() throws IOException {
 		applicationOptions = optionsExtractor
-				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-m8,12" });
+				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-m8,12" });
 		assertEquals(8, applicationOptions.scaleOptions.window.start);
 		assertEquals(12, applicationOptions.scaleOptions.window.end);
 		assertEquals(false, applicationOptions.scaleOptions.window.includeOpen);
@@ -290,28 +290,28 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE_4", "-p0,12", "-n3", "-m8,12" });
+		mock.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p0,12", "-n3", "-m8,12" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
 	@Test
 	public void testExtract_Arpeggio() throws IOException {
 		applicationOptions = optionsExtractor
-				.extract(new String[] { "-o", "arpeggio", "-t", "DADGAD", "-c", "MAJ7", "-r", "E_4" });
+				.extract(new String[] { "-o", "arpeggio", "-t", "DADGAD", "-c", "MAJ7", "-r", "E" });
 		assertEquals(Operation.ARPEGGIO, applicationOptions.operation);
 		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
 		assertEquals(Chord.fromName("maj7"), applicationOptions.arpeggioOptions.chord);
-		assertEquals(Pitch.E_4, applicationOptions.arpeggioOptions.pitch);
+		assertEquals(PitchClass.E_, applicationOptions.arpeggioOptions.pitchClass);
 	}
 
 	@Test
 	public void testExtract_Chord() throws IOException {
 		applicationOptions = optionsExtractor
-				.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE_4", "-p1,5", "-w4", "-d0" });
+				.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE", "-p1,5", "-w4", "-d0" });
 		assertEquals(Operation.CHORD, applicationOptions.operation);
 		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
 		assertEquals(Chord.fromName("maj7"), applicationOptions.chordOptions.chord);
-		assertEquals(Pitch.E_4, applicationOptions.chordOptions.pitch);
+		assertEquals(PitchClass.E_, applicationOptions.chordOptions.pitchClass);
 		assertEquals(1, applicationOptions.chordOptions.position.stringIndex);
 		assertEquals(5, applicationOptions.chordOptions.position.fretIndex);
 		assertEquals(4, applicationOptions.chordOptions.maxWidth);
@@ -323,7 +323,7 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE_4", "-p1,5", "-w0" });
+		mock.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE", "-p1,5", "-w0" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
@@ -332,7 +332,7 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE_4", "-p1,5", "-d-1" });
+		mock.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE", "-p1,5", "-d-1" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 
@@ -341,7 +341,7 @@ public class OptionsExtractorTest {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
 		when(mock.parseArguments(any())).thenCallRealMethod();
-		mock.extract(new String[] { "-o", "chord", "-t", "DADGAD", "-c", "MAJ7", "-r", "E_4" });
+		mock.extract(new String[] { "-o", "chord", "-t", "DADGAD", "-c", "MAJ7", "-r", "E" });
 		verify(mock, times(1)).printHelpAndExit(any());
 	}
 }

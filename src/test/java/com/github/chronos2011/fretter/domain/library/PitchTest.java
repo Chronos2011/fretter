@@ -8,17 +8,23 @@ public class PitchTest {
 	@Test
 	public void testPitchFromMidiIndex() {
 		assertEquals(Pitch.DS8, Pitch.from(111));
+		assertEquals(null, Pitch.from(1111));
 	}
 
 	@Test
 	public void testPitchFromConstantName() {
 		assertEquals(Pitch.DS8, Pitch.from("DS8"));
+		assertEquals(null, Pitch.from("TEST"));
 	}
 
 	@Test
 	public void testRaise() {
 		assertEquals(Pitch.G_4, Pitch.C_4.raise(7));
 		assertEquals(Pitch.C_5, Pitch.C_4.raise(12));
+	}
+
+	@Test public void getPitchClass() {
+		assertEquals(PitchClass.CS, Pitch.CS7.getPitchClass());
 	}
 
 	@Test

@@ -31,7 +31,7 @@ public class ScaleSolver extends BaseSolver {
 		createBoard();
 		tuneBoard();
 		ScaleOptions options = applicationOptions.scaleOptions;
-		visitBoard(fret -> applyIntervalList(options.scale.intervalList, options.pitch, fret));
+		visitBoard(fret -> applyIntervalList(options.scale.intervalList, options.pitchClass, fret));
 		if (options.pattern != null)
 			solveWithDistributionPattern();
 		else if (options.window != null)

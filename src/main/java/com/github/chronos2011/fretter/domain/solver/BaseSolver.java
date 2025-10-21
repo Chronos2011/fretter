@@ -66,11 +66,11 @@ public abstract class BaseSolver implements Solver {
 	 * relationship). Lists of {@link Interval}s are defined by {@link Scale}s and {@link Chord}s.
 	 *
 	 * @param intervalList the List of {@link Interval}s to be used
-	 * @param root         the root {@link Pitch} of the List of {@link Intervals}; the octave does not have an impact
+	 * @param root         the root {@link PitchClass} of the List of {@link Intervals}; the octave does not have an impact
 	 * @param fret         the {@link Fret} to set
 	 */
-	protected void applyIntervalList(List<Interval> intervalList, Pitch root, Fret fret) {
-		Interval interval = Interval.from(root, fret.pitch);
+	protected void applyIntervalList(List<Interval> intervalList, PitchClass root, Fret fret) {
+		Interval interval = Interval.from(root.targetPitch, fret.pitch);
 		for (int order = 0; order < intervalList.size(); order++) {
 			if (intervalList.get(order) == interval) {
 				fret.interval = interval;

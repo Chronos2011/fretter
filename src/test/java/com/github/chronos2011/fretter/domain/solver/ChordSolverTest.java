@@ -11,7 +11,7 @@ import com.github.chronos2011.fretter.domain.Fingering;
 import com.github.chronos2011.fretter.domain.Fret;
 import com.github.chronos2011.fretter.domain.Position;
 import com.github.chronos2011.fretter.domain.library.Chord;
-import com.github.chronos2011.fretter.domain.library.Pitch;
+import com.github.chronos2011.fretter.domain.library.PitchClass;
 import com.github.chronos2011.fretter.domain.library.Tuning;
 import com.github.chronos2011.fretter.options.ApplicationOptions;
 import com.github.chronos2011.fretter.options.BoardOptions;
@@ -28,7 +28,7 @@ public class ChordSolverTest {
 		applicationOptions.boardOptions.tuning = Tuning.fromName("EADGBE");
 		applicationOptions.chordOptions = new ChordOptions();
 		applicationOptions.chordOptions.chord = Chord.fromName("dom7");
-		applicationOptions.chordOptions.pitch = Pitch.C_4;
+		applicationOptions.chordOptions.pitchClass = PitchClass.C_;
 		applicationOptions.chordOptions.position = new Position(2, 10);
 		applicationOptions.chordOptions.maxWidth = 5;
 		applicationOptions.chordOptions.maxDeviation = 1;
@@ -56,7 +56,7 @@ public class ChordSolverTest {
 	@Test
 	public void testSolveTightMaximumWidth() {
 		applicationOptions.chordOptions.chord = Chord.fromName("maj7");
-		applicationOptions.chordOptions.pitch = Pitch.E_4;
+		applicationOptions.chordOptions.pitchClass = PitchClass.E_;
 		applicationOptions.chordOptions.position = new Position(8);
 		applicationOptions.chordOptions.allowOpenStrings = true;
 		applicationOptions.chordOptions.maxWidth = 2;

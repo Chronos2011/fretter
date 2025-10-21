@@ -47,21 +47,21 @@ public class TitleGenerator {
 
 	private String generateScaleTitle() {
 		String tuning = applicationOptions.boardOptions.tuning.getName();
-		String root = applicationOptions.scaleOptions.pitch.getNoteName();
+		String root = applicationOptions.scaleOptions.pitchClass.getNoteName();
 		String scale = applicationOptions.scaleOptions.scale.getName();
 		return String.format("Scale %s %s (%s tuning)", root, scale, tuning);
 	}
 
 	private String generateArpeggioTitle() {
 		String tuning = applicationOptions.boardOptions.tuning.getName();
-		String root = applicationOptions.arpeggioOptions.pitch.getNoteName();
+		String root = applicationOptions.arpeggioOptions.pitchClass.getNoteName();
 		String chord = applicationOptions.arpeggioOptions.chord.getName();
 		return String.format("Arpeggio %s %s (%s tuning)", root, chord, tuning);
 	}
 
 	private String generateChordTitle() {
 		String tuning = applicationOptions.boardOptions.tuning.getName();
-		String root = applicationOptions.chordOptions.pitch.getNoteName();
+		String root = applicationOptions.chordOptions.pitchClass.getNoteName();
 		String chord = applicationOptions.chordOptions.chord.getName();
 		return String.format("Chord %s %s (%s tuning)", root, chord, tuning);
 	}

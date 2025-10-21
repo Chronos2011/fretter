@@ -40,7 +40,7 @@ public class ConsoleSolutionRendererTest {
 		applicationOptions.boardOptions.fretCount = 4;
 		applicationOptions.chordOptions = new ChordOptions();
 		applicationOptions.chordOptions.chord = Chord.fromName("maj");
-		applicationOptions.chordOptions.pitch = Pitch.C_4;
+		applicationOptions.chordOptions.pitchClass = PitchClass.C_;
 		applicationOptions.chordOptions.position = new Position(0, 8);
 		board = new Board(applicationOptions.boardOptions);
 		solution = new Solution(board, null, new ArrayList<String>(), new ArrayList<String>());

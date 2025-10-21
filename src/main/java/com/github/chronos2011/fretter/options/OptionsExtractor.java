@@ -80,8 +80,9 @@ public class OptionsExtractor {
         options.addOption(Option.builder().longOpt("allow-frets-top-left-of-bar")
                 .desc("allow frets top left of a bar in operation 'chord'").get());
         // Common options
-        options.addOption(Option.builder("r").longOpt("root").hasArg().argName("pitch").type(String.class)
-                .desc("the root pitch to be used, mandatory for operations 'scale', 'arpeggio', and 'chord'").get());
+        options.addOption(Option.builder("r").longOpt("root").hasArg().argName("pitch-class").type(String.class)
+                .desc("the root pitch class to be used, mandatory for operations 'scale', 'arpeggio', and 'chord'")
+                .get());
         options.addOption(Option.builder("p").longOpt("position").hasArg().argName("position").type(String.class)
                 .desc("either the fret x position to be used (format: 'x') "
                         + "or string position x and fret position y to be used (format: 'x,y' - no whitespace)"
@@ -146,7 +147,7 @@ public class OptionsExtractor {
                 case "chord":
                     printListAndExit(Chord.class);
                 case "pitch":
-                    printListAndExit(Pitch.class);
+                    printListAndExit(PitchClass.class);
                 case "label":
                     printListAndExit(FretLabeling.class);
                 default:
@@ -201,7 +202,7 @@ public class OptionsExtractor {
             return null;
         ScaleOptions scaleOptions = new ScaleOptions();
         scaleOptions.scale = (Scale) getParsedEnum("scale", Scale.class);
-        scaleOptions.pitch = (Pitch) getParsedEnum("root", Pitch.class);
+        scaleOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
         boolean hasPosition = commandLine.hasOption("position");
         boolean hasNotesPerString = commandLine.hasOption("notes-per-string");
         boolean hasWorkingWindow = commandLine.hasOption("working-window");
@@ -224,7 +225,7 @@ public class OptionsExtractor {
             return null;
         ArpeggioOptions arpeggioOptions = new ArpeggioOptions();
         arpeggioOptions.chord = (Chord) getParsedEnum("chord", Chord.class);
-        arpeggioOptions.pitch = (Pitch) getParsedEnum("root", Pitch.class);
+        arpeggioOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
         return arpeggioOptions;
     }
 
@@ -233,7 +234,7 @@ public class OptionsExtractor {
             return null;
         ChordOptions chordOptions = new ChordOptions();
         chordOptions.chord = (Chord) getParsedEnum("chord", Chord.class);
-        chordOptions.pitch = (Pitch) getParsedEnum("root", Pitch.class);
+        chordOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
         chordOptions.position = getPosition("position");
         chordOptions.maxWidth = commandLine.getParsedOptionValue("width", 5);
         if (chordOptions.maxWidth < 1)

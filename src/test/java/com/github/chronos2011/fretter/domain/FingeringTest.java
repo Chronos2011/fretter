@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 
 import com.github.chronos2011.fretter.domain.library.Chord;
-import com.github.chronos2011.fretter.domain.library.Pitch;
+import com.github.chronos2011.fretter.domain.library.PitchClass;
 import com.github.chronos2011.fretter.domain.library.Tuning;
 import com.github.chronos2011.fretter.options.BoardOptions;
 import com.github.chronos2011.fretter.options.ChordOptions;
@@ -23,7 +23,7 @@ public class FingeringTest {
 		board = new Board(boardOptions);
 		chordOptions = new ChordOptions();
 		chordOptions.chord = Chord.fromName("maj");
-		chordOptions.pitch = Pitch.C_4;
+		chordOptions.pitchClass = PitchClass.C_;
 		chordOptions.position = new Position(0, 8);
 		chordOptions.maxWidth = 4;
 		chordOptions.maxDeviation = 0;
