@@ -21,9 +21,9 @@ public class BoardSolver extends BaseSolver {
 	public Solution solve() {
 		createBoard();
 		tuneBoard();
-		// Showing the complete board effectively means applying a {@link Scale.CHROMATIC}
+		// Showing the complete board effectively means applying a chromatic scale
 		Pitch boardRoot = applicationOptions.boardOptions.tuning.pitches.get(0);
-		visitBoard(fret -> applyIntervalList(Scale.CHROMATIC.intervalList, boardRoot, fret));
+		visitBoard(fret -> applyIntervalList(Scale.fromName("chromatic").intervalList, boardRoot, fret));
 		return new Solution(board, null, warnings, hints);
 	}
 }

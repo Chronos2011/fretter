@@ -212,6 +212,19 @@ public enum Pitch implements Nameable {
 		return null;
 	}
 
+	/**
+	 * Returns the Pitch corresponding to its constant name.
+	 *
+	 * @param constantName the constant name of the Pitch
+	 * @return the corresponding Pitch
+	 */
+	public static Pitch from(String constantName) {
+		for (Pitch pitch : Pitch.values())
+			if (pitch.name().equals(constantName))
+				return (pitch);
+		return null;
+	}
+
 	/** MIDI pitch index of the Pitch */
 	public final int midiIndex;
 	/** Frequency in [Hz] of the Pitch */
@@ -232,8 +245,12 @@ public enum Pitch implements Nameable {
 		return from(midiIndex + steps);
 	}
 
-	@Override
-	public String getName() {
+	/**
+	 * Returns the human-readable not name of the Pitch.
+	 *
+	 * @return the human-readable not name of the Pitch
+	 */
+	public String getNoteName() {
 		if (this == UNKNOWN)
 			return "???";
 		String base = name().substring(0, 1);
@@ -267,6 +284,11 @@ public enum Pitch implements Nameable {
 				break;
 		}
 		return base + modifier + octave;
+	}
+
+	@Override
+	public String getName() {
+		return name();
 	}
 
 	@Override

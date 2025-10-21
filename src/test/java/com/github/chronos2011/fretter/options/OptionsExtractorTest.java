@@ -85,7 +85,7 @@ public class OptionsExtractorTest {
 	public void testExtract_Board() throws IOException {
 		applicationOptions = optionsExtractor.extract(new String[] { "-o", "board", "-t", "DADGAD" });
 		assertEquals(Operation.BOARD, applicationOptions.operation);
-		assertEquals(Tuning.DADGAD, applicationOptions.boardOptions.tuning);
+		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
 	}
 
 	@Test
@@ -205,8 +205,8 @@ public class OptionsExtractorTest {
 		applicationOptions = optionsExtractor
 				.extract(new String[] { "-o", "scale", "-t", "DADGAD", "-s", "DORIAN", "-r", "E_4" });
 		assertEquals(Operation.SCALE, applicationOptions.operation);
-		assertEquals(Tuning.DADGAD, applicationOptions.boardOptions.tuning);
-		assertEquals(Scale.DORIAN, applicationOptions.scaleOptions.scale);
+		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
+		assertEquals(Scale.fromName("dorian"), applicationOptions.scaleOptions.scale);
 		assertEquals(Pitch.E_4, applicationOptions.scaleOptions.pitch);
 	}
 
@@ -299,8 +299,8 @@ public class OptionsExtractorTest {
 		applicationOptions = optionsExtractor
 				.extract(new String[] { "-o", "arpeggio", "-t", "DADGAD", "-c", "MAJ7", "-r", "E_4" });
 		assertEquals(Operation.ARPEGGIO, applicationOptions.operation);
-		assertEquals(Tuning.DADGAD, applicationOptions.boardOptions.tuning);
-		assertEquals(Chord.MAJ7, applicationOptions.arpeggioOptions.chord);
+		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
+		assertEquals(Chord.fromName("maj7"), applicationOptions.arpeggioOptions.chord);
 		assertEquals(Pitch.E_4, applicationOptions.arpeggioOptions.pitch);
 	}
 
@@ -309,8 +309,8 @@ public class OptionsExtractorTest {
 		applicationOptions = optionsExtractor
 				.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE_4", "-p1,5", "-w4", "-d0" });
 		assertEquals(Operation.CHORD, applicationOptions.operation);
-		assertEquals(Tuning.DADGAD, applicationOptions.boardOptions.tuning);
-		assertEquals(Chord.MAJ7, applicationOptions.chordOptions.chord);
+		assertEquals(Tuning.fromName("DADGAD"), applicationOptions.boardOptions.tuning);
+		assertEquals(Chord.fromName("maj7"), applicationOptions.chordOptions.chord);
 		assertEquals(Pitch.E_4, applicationOptions.chordOptions.pitch);
 		assertEquals(1, applicationOptions.chordOptions.position.stringIndex);
 		assertEquals(5, applicationOptions.chordOptions.position.fretIndex);

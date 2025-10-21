@@ -23,7 +23,7 @@ public class BaseSolverTest {
 		applicationOptions = new ApplicationOptions();
 		applicationOptions.boardOptions = new BoardOptions();
 		applicationOptions.boardOptions.fretCount = 15;
-		applicationOptions.boardOptions.tuning = Tuning.EADGBE;
+		applicationOptions.boardOptions.tuning = Tuning.fromName("EADGBE");
 		solver = new BaseSolver(applicationOptions) {
 			@Override
 			public Solution solve() {
@@ -71,8 +71,8 @@ public class BaseSolverTest {
 	public void testApplyIntervalList() {
 		solver.createBoard();
 		solver.tuneBoard();
-		solver.applyIntervalList(Scale.MAJOR.intervalList, Pitch.C_4, solver.board.frets[0][8]);
-		solver.applyIntervalList(Scale.MAJOR.intervalList, Pitch.C_4, solver.board.frets[1][6]);
+		solver.applyIntervalList(Scale.fromName("major").intervalList, Pitch.C_4, solver.board.frets[0][8]);
+		solver.applyIntervalList(Scale.fromName("major").intervalList, Pitch.C_4, solver.board.frets[1][6]);
 		Fret fret0 = solver.board.frets[0][8];
 		Fret fret1 = solver.board.frets[1][6];
 		assertEquals(Pitch.C_4, fret0.pitch);

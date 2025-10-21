@@ -12,7 +12,7 @@ public class BoardTest {
 	@Test
 	public void testBoard() {
 		BoardOptions options = new BoardOptions();
-		options.tuning = Tuning.DADGAD;
+		options.tuning = Tuning.fromName("DADGAD");
 		options.fretCount = 15;
 		Board board = new Board(options);
 		assertEquals(6, board.stringCount);

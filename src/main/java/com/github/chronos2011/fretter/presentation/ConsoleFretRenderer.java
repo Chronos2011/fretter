@@ -24,7 +24,7 @@ public class ConsoleFretRenderer implements FretRenderer {
 			case MIDI_PITCH:
 				return String.format("%2d ", fret.pitch.midiIndex);
 			case NOTE_NAME:
-				return fret.pitch.getName();
+				return fret.pitch.getNoteName();
 			case INTERVAL_SYMBOL:
 				return fret.interval.getSymbol();
 			case INTERVAL_STEPS:

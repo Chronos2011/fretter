@@ -1,8 +1,8 @@
 package com.github.chronos2011.fretter.options;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.cli.*;
 
@@ -10,10 +10,7 @@ import com.github.chronos2011.fretter.application.Configuration;
 import com.github.chronos2011.fretter.domain.DomainException;
 import com.github.chronos2011.fretter.domain.FretWindow;
 import com.github.chronos2011.fretter.domain.Position;
-import com.github.chronos2011.fretter.domain.library.Chord;
-import com.github.chronos2011.fretter.domain.library.Pitch;
-import com.github.chronos2011.fretter.domain.library.Scale;
-import com.github.chronos2011.fretter.domain.library.Tuning;
+import com.github.chronos2011.fretter.domain.library.*;
 import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 import com.github.chronos2011.fretter.options.RenderOptions.FretLabeling;
 
@@ -195,7 +192,7 @@ public class OptionsExtractor {
         boardOptions.fretCount = commandLine.getParsedOptionValue("fret-count", 24);
         if (boardOptions.fretCount < 1)
             throw new DomainException("Fret count must be >= 1");
-        boardOptions.tuning = (Tuning) getParsedEnum("tuning", Tuning.class, Tuning.STANDARD_GUITAR);
+        boardOptions.tuning = (Tuning) getParsedEnum("tuning", Tuning.class, Tuning.fromName("standard guitar"));
         return boardOptions;
     }
 
@@ -313,12 +310,12 @@ public class OptionsExtractor {
         }
     }
 
-    private Enum<?> getParsedEnum(String optionName, Class<? extends Enum<?>> clazz)
+    private <T extends Enum<?> & Nameable> T getParsedEnum(String optionName, Class<T> clazz)
             throws DomainException, ParseException {
         return getParsedEnum(optionName, clazz, null);
     }
 
-    private Enum<?> getParsedEnum(String optionName, Class<? extends Enum<?>> clazz, Enum<?> fallback)
+    private <T extends Enum<?> & Nameable> T getParsedEnum(String optionName, Class<T> clazz, T fallback)
             throws DomainException, ParseException {
         try {
             String requestedEnum = commandLine.getParsedOptionValue(optionName);
@@ -328,13 +325,18 @@ public class OptionsExtractor {
                 else
                     return fallback;
             }
-            for (Enum<?> constant : clazz.getEnumConstants())
-                if (constant.name().equalsIgnoreCase(requestedEnum))
+            for (T constant : clazz.getEnumConstants()) {
+                String name = constant.getName();
+                if (name.equalsIgnoreCase(requestedEnum))
                     return constant;
+                List<String> alternativeNames = constant.getAlternativeNames();
+                for (String alternativeName : alternativeNames)
+                    if (alternativeName.equalsIgnoreCase(requestedEnum))
+                        return constant;
+            }
             throw new DomainException("Invalid " + clazz.getSimpleName().toLowerCase() + " specified");
         } catch (DomainException exception) {
-            String options = Arrays.stream(clazz.getEnumConstants()).map(Enum::name).sorted()
-                    .collect(Collectors.joining(", "));
+            String options = getNamedOptions(clazz);
             throw new DomainException(exception.getMessage() + " (options available: " + options + ")");
         }
     }
@@ -353,30 +355,21 @@ public class OptionsExtractor {
             System.exit(0);
     }
 
-    protected void printListAndExit(Class<?> clazz) {
-        Stream<String> names;
-        switch (clazz.getSimpleName()) {
-            case "Tuning":
-                names = Arrays.asList(Tuning.values()).stream().map(tuning -> tuning.name()).sorted();
-                break;
-            case "Scale":
-                names = Arrays.asList(Scale.values()).stream().map(scale -> scale.name()).sorted();
-                break;
-            case "Chord":
-                names = Arrays.asList(Chord.values()).stream().map(chord -> chord.name()).sorted();
-                break;
-            case "Pitch":
-                names = Arrays.asList(Pitch.values()).stream().map(pitch -> pitch.getName()).sorted();
-                break;
-            case "FretLabeling":
-                names = Arrays.asList(FretLabeling.values()).stream().map(label -> label.name()).sorted();
-                break;
-            default:
-                printHelpAndExit("Invalid item to be listed");
-                return;
-        }
-        String nameList = String.join(", ", names.toArray(String[]::new));
-        System.out.println(clazz.getSimpleName() + ": " + nameList);
+    protected <T extends Enum<?> & Nameable> void printListAndExit(Class<T> clazz) {
+        String namedOptions = getNamedOptions(clazz);
+        System.out.println(clazz.getSimpleName() + ": " + namedOptions);
+        System.out.println("\n * Named options that contain multiple words must be enclosed in \"double quotes\" *");
         System.exit(0);
+    }
+
+    protected <T extends Enum<?> & Nameable> String getNamedOptions(Class<T> clazz) {
+        List<String> names = new ArrayList<>();
+        for (T constant : clazz.getEnumConstants()) {
+            names.add(constant.getName());
+            names.addAll(constant.getAlternativeNames());
+        }
+        Collections.sort(names);
+        String options = String.join(", ", names);
+        return options;
     }
 }

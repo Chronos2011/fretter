@@ -21,7 +21,7 @@ public class TitleGeneratorTest {
 		applicationOptions = new ApplicationOptions();
 		applicationOptions.operation = Operation.BOARD;
 		applicationOptions.boardOptions = new BoardOptions();
-		applicationOptions.boardOptions.tuning = Tuning.STANDARD_BASS;
+		applicationOptions.boardOptions.tuning = Tuning.fromName("standard bass");
 		applicationOptions.boardOptions.fretCount = 12;
 	}
 
@@ -35,29 +35,29 @@ public class TitleGeneratorTest {
 	public void testGenerateTitleScale() {
 		applicationOptions.operation = Operation.SCALE;
 		applicationOptions.scaleOptions = new ScaleOptions();
-		applicationOptions.scaleOptions.scale = Scale.AEOLIAN;
+		applicationOptions.scaleOptions.scale = Scale.fromName("minor");
 		applicationOptions.scaleOptions.pitch = Pitch.E_4;
 		generator = new TitleGenerator(applicationOptions);
-		assertEquals("Scale E ₄ aeolian (standard bass tuning)", generator.generateTitle());
+		assertEquals("Scale E ₄ minor (standard bass tuning)", generator.generateTitle());
 	}
 
 	@Test
 	public void testGenerateTitleArpeggio() {
 		applicationOptions.operation = Operation.ARPEGGIO;
 		applicationOptions.arpeggioOptions = new ArpeggioOptions();
-		applicationOptions.arpeggioOptions.chord = Chord.MAJ7;
+		applicationOptions.arpeggioOptions.chord = Chord.fromName("maj7");
 		applicationOptions.arpeggioOptions.pitch = Pitch.D_3;
 		generator = new TitleGenerator(applicationOptions);
-		assertEquals("Arpeggio D ₃ maj7 (standard bass tuning)", generator.generateTitle());
+		assertEquals("Arpeggio D ₃ major seventh (standard bass tuning)", generator.generateTitle());
 	}
 
 	@Test
 	public void testGenerateTitleChord() {
 		applicationOptions.operation = Operation.CHORD;
 		applicationOptions.chordOptions = new ChordOptions();
-		applicationOptions.chordOptions.chord = Chord.AUG;
+		applicationOptions.chordOptions.chord = Chord.fromName("aug");
 		applicationOptions.chordOptions.pitch = Pitch.C_4;
 		generator = new TitleGenerator(applicationOptions);
-		assertEquals("Chord C ₄ aug (standard bass tuning)", generator.generateTitle());
+		assertEquals("Chord C ₄ augmented (standard bass tuning)", generator.generateTitle());
 	}
 }

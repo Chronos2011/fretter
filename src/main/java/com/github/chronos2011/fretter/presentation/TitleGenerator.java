@@ -41,28 +41,28 @@ public class TitleGenerator {
 	private String generateBoardTitle() {
 		BoardOptions options = applicationOptions.boardOptions;
 
-		String tuning = options.tuning.toString();
+		String tuning = options.tuning.getName();
 		return String.format("Board (%s tuning, %d frets)", tuning, options.fretCount);
 	}
 
 	private String generateScaleTitle() {
-		String tuning = applicationOptions.boardOptions.tuning.toString();
-		String root = applicationOptions.scaleOptions.pitch.getName();
-		String scale = applicationOptions.scaleOptions.scale.toString();
+		String tuning = applicationOptions.boardOptions.tuning.getName();
+		String root = applicationOptions.scaleOptions.pitch.getNoteName();
+		String scale = applicationOptions.scaleOptions.scale.getName();
 		return String.format("Scale %s %s (%s tuning)", root, scale, tuning);
 	}
 
 	private String generateArpeggioTitle() {
-		String tuning = applicationOptions.boardOptions.tuning.toString();
-		String root = applicationOptions.arpeggioOptions.pitch.getName();
-		String chord = applicationOptions.arpeggioOptions.chord.toString();
+		String tuning = applicationOptions.boardOptions.tuning.getName();
+		String root = applicationOptions.arpeggioOptions.pitch.getNoteName();
+		String chord = applicationOptions.arpeggioOptions.chord.getName();
 		return String.format("Arpeggio %s %s (%s tuning)", root, chord, tuning);
 	}
 
 	private String generateChordTitle() {
-		String tuning = applicationOptions.boardOptions.tuning.toString();
-		String root = applicationOptions.chordOptions.pitch.getName();
-		String chord = applicationOptions.chordOptions.chord.toString();
+		String tuning = applicationOptions.boardOptions.tuning.getName();
+		String root = applicationOptions.chordOptions.pitch.getNoteName();
+		String chord = applicationOptions.chordOptions.chord.getName();
 		return String.format("Chord %s %s (%s tuning)", root, chord, tuning);
 	}
 }

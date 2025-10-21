@@ -28,14 +28,14 @@ public class ScaleSolverTest {
 		applicationOptions = new ApplicationOptions();
 		applicationOptions.boardOptions = new BoardOptions();
 		applicationOptions.boardOptions.fretCount = 24;
-		applicationOptions.boardOptions.tuning = Tuning.EADGBE;
+		applicationOptions.boardOptions.tuning = Tuning.fromName("EADGBE");
 
 	}
 
 	@Test
 	public void testSolve() {
 		applicationOptions.scaleOptions = new ScaleOptions();
-		applicationOptions.scaleOptions.scale = Scale.MAJOR;
+		applicationOptions.scaleOptions.scale = Scale.fromName("major");
 		applicationOptions.scaleOptions.pitch = Pitch.C_4;
 		applicationOptions.scaleOptions.pattern = null;
 		applicationOptions.scaleOptions.window = null;
@@ -77,7 +77,7 @@ public class ScaleSolverTest {
 	@Test
 	public void testSolve_WorkingWindow() {
 		applicationOptions.scaleOptions = new ScaleOptions();
-		applicationOptions.scaleOptions.scale = Scale.MAJOR;
+		applicationOptions.scaleOptions.scale = Scale.fromName("major");
 		applicationOptions.scaleOptions.pitch = Pitch.C_4;
 		applicationOptions.scaleOptions.pattern = null;
 		applicationOptions.scaleOptions.window = new FretWindow();
@@ -131,7 +131,7 @@ public class ScaleSolverTest {
 	@Test
 	public void testSolve_DistributionPattern() throws IOException {
 		applicationOptions.scaleOptions = new ScaleOptions();
-		applicationOptions.scaleOptions.scale = Scale.MAJOR;
+		applicationOptions.scaleOptions.scale = Scale.fromName("major");
 		applicationOptions.scaleOptions.pitch = Pitch.C_4;
 		applicationOptions.scaleOptions.pattern = new ScaleOptions.DistributionPattern();
 		applicationOptions.scaleOptions.pattern.position = new Position(0, 8);
@@ -185,7 +185,7 @@ public class ScaleSolverTest {
 	@Test
 	public void testSolve_Throws() throws DomainException {
 		applicationOptions.scaleOptions = new ScaleOptions();
-		applicationOptions.scaleOptions.scale = Scale.MAJOR;
+		applicationOptions.scaleOptions.scale = Scale.fromName("major");
 		applicationOptions.scaleOptions.pitch = Pitch.C_4;
 		applicationOptions.scaleOptions.pattern = new ScaleOptions.DistributionPattern();
 		applicationOptions.scaleOptions.pattern.position = new Position(0, 8);

@@ -25,9 +25,9 @@ public class ChordSolverTest {
 		applicationOptions = new ApplicationOptions();
 		applicationOptions.boardOptions = new BoardOptions();
 		applicationOptions.boardOptions.fretCount = 24;
-		applicationOptions.boardOptions.tuning = Tuning.EADGBE;
+		applicationOptions.boardOptions.tuning = Tuning.fromName("EADGBE");
 		applicationOptions.chordOptions = new ChordOptions();
-		applicationOptions.chordOptions.chord = Chord.DOM7;
+		applicationOptions.chordOptions.chord = Chord.fromName("dom7");
 		applicationOptions.chordOptions.pitch = Pitch.C_4;
 		applicationOptions.chordOptions.position = new Position(2, 10);
 		applicationOptions.chordOptions.maxWidth = 5;
@@ -55,7 +55,7 @@ public class ChordSolverTest {
 
 	@Test
 	public void testSolveTightMaximumWidth() {
-		applicationOptions.chordOptions.chord = Chord.MAJ7;
+		applicationOptions.chordOptions.chord = Chord.fromName("maj7");
 		applicationOptions.chordOptions.pitch = Pitch.E_4;
 		applicationOptions.chordOptions.position = new Position(8);
 		applicationOptions.chordOptions.allowOpenStrings = true;

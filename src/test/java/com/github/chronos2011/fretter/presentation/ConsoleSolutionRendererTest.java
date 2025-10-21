@@ -36,10 +36,10 @@ public class ConsoleSolutionRendererTest {
 		applicationOptions.renderOptions.renderWindow.end = 4;
 		applicationOptions.renderOptions.renderWindow.includeOpen = true;
 		applicationOptions.boardOptions = new BoardOptions();
-		applicationOptions.boardOptions.tuning = Tuning.STANDARD_UKULELE;
+		applicationOptions.boardOptions.tuning = Tuning.fromName("standard ukulele");
 		applicationOptions.boardOptions.fretCount = 4;
 		applicationOptions.chordOptions = new ChordOptions();
-		applicationOptions.chordOptions.chord = Chord.MAJ;
+		applicationOptions.chordOptions.chord = Chord.fromName("maj");
 		applicationOptions.chordOptions.pitch = Pitch.C_4;
 		applicationOptions.chordOptions.position = new Position(0, 8);
 		board = new Board(applicationOptions.boardOptions);

@@ -30,7 +30,7 @@ public class ConsoleBoardRendererTest {
 		applicationOptions.renderOptions.renderWindow.end = 4;
 		applicationOptions.renderOptions.renderWindow.includeOpen = true;
 		applicationOptions.boardOptions = new BoardOptions();
-		applicationOptions.boardOptions.tuning = Tuning.STANDARD_UKULELE;
+		applicationOptions.boardOptions.tuning = Tuning.fromName("standard ukulele");
 		applicationOptions.boardOptions.fretCount = 4;
 		board = new Board(applicationOptions.boardOptions);
 		builder = new StringBuilder();

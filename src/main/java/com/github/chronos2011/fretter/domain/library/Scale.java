@@ -1,5 +1,7 @@
 package com.github.chronos2011.fretter.domain.library;
 
+import static com.github.chronos2011.fretter.util.ListUtil.ul;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,85 +10,135 @@ import java.util.List;
  * Enumeration Scale enumerates the various scales available for diagram generation. Programmatically these are the same
  * as as {@link Chord}s, but we keep them apart for domain reasons.
  */
-public enum Scale {
-	// TODO too many scales have alternative names, we should consider introducing this as a feature
+public enum Scale implements Nameable {
 	// TODO it seems that Wikipedia is highly unreliable - look for another source
-	CHROMATIC(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
+	/*
+	 * Intervals are generated automatically from constant name; constant names must be composed of a list of steps (use
+	 * 'N' for 0, 'T' for 10, 'E' for 11).
+	 */
+	// 12-tone
+	N123456789TE("chromatic", ul()),
+	// 9-tone
+	N234579TE("blues nonatonic", ul()),
+	// 8-tone
+	// 7-tone
+	N13568T("locrian", ul()),
+	N13579T("phrygian", ul()),
+	N23578T("minor", ul("minor natural", "aeolian")),
+	N23578E("minor harmonic", ul()),
+	N23579T("dorian", ul()),
+	N23579E("minor melodic", ul()),
+	N24578E("major harmonic", ul()),
+	N24579T("mixolydian", ul()),
+	N24579E("major", ul("major natural", "ionian")),
+	N24679E("lydian", ul()),
+	// 5-tone
+	N2479("major pentatonic", ul("ryo")),
+	N2579("major blues pentatonic", ul("ritsu", "yo")),
+	N257T("suspended pentatonic", ul()),
+	N357T("minor pentatonic", ul("minyo")),
+	N358T("minor blues pentatonic", ul()),
 	//
-	BLUES_NONATONIC(0, 2, 3, 4, 5, 7, 9, 10, 11),
+	// TODO check modes
+	N24579("major hexatonic", ul()),
+	N2357T("minor hexatonic", ul()),
 	//
-	MAJOR(0, 2, 4, 5, 7, 9, 11),
-	MAJOR_HARMONIC(0, 2, 4, 5, 7, 8, 11),
-	MINOR_NATURAL(0, 2, 3, 5, 7, 8, 10),
-	MINOR_HARMONIC(0, 2, 3, 5, 7, 8, 11),
-	MINOR_MELODIC(0, 2, 3, 5, 7, 9, 11),
+	N3567T("minor blues hexatonic", ul()),
+	N23479("major blues hexatonic", ul()),
 	//
-	IONIAN(0, 2, 4, 5, 7, 9, 11),
-	DORIAN(0, 2, 3, 5, 7, 9, 10),
-	PHRYGIAN(0, 1, 3, 5, 7, 8, 10),
-	LYDIAN(0, 2, 4, 6, 7, 9, 11),
-	MIXOLYDIAN(0, 2, 4, 5, 7, 9, 10),
-	AEOLIAN(0, 2, 3, 5, 7, 8, 10),
-	LOCRIAN(0, 1, 3, 5, 6, 8, 10),
-	//
-	MAJOR_HEXATONIC(0, 2, 4, 5, 7, 9),
-	MINOR_HEXATONIC(0, 2, 3, 5, 7, 10),
-	//
-	MAJOR_PENTATONIC(0, 2, 4, 7, 9),
-	SUSPENDED_PENTATONIC(0, 2, 5, 7, 10),
-	MINOR_BLUES_PENTATONIC(0, 3, 5, 8, 10),
-	MAJOR_BLUES_PENTATONIC(0, 2, 5, 7, 9),
-	MINOR_PENTATONIC(0, 3, 5, 7, 10),
-	//
-	MINOR_BLUES_HEXATONIC(0, 3, 5, 6, 7, 10),
-	MAJOR_BLUES_HEXATONIC(0, 2, 3, 4, 7, 9),
-	//
-	BEBOP_DOMINANT(0, 2, 4, 5, 7, 9, 10, 11),
-	BEBOP_MAJOR(0, 2, 4, 5, 7, 8, 9, 11),
-	BEBOP_MELODIC_MINOR(0, 2, 3, 5, 7, 8, 9, 11),
-	BEBOP_HARMONIC_MINOR(0, 2, 3, 5, 7, 8, 10, 11),
-	BEBOP_SEVENTH_FLAT_FIVE_DIMINISHED(0, 2, 4, 5, 6, 8, 10, 11),
+	N24579TE("bebop dominant", ul()),
+	N245789E("bebop major", ul()),
+	N235789E("bebop melodic minor", ul()),
+	N23578TE("bebop harmonic minor", ul()),
+	N24568TE("bebop seventh flat five diminished", ul()),
 	// European
-	FLAMENCO(0, 1, 4, 5, 7, 8, 10),
-	NEAPOLITAN_MAJOR(0, 1, 3, 5, 7, 9, 11),
-	NEAPOLITAN_MINOR(0, 1, 3, 5, 7, 8, 11),
-	ROMANIAN_MAJOR(0, 1, 4, 6, 7, 9, 10),
-	ROMANIAN_MINOR(0, 2, 3, 6, 7, 9, 10),
-	HUNGARIAN_MAJOR(0, 3, 4, 6, 7, 9, 10),
-	HUNGARIAN_MINOR(0, 2, 3, 6, 7, 8, 11),
-	PROMETHEUS(0, 2, 4, 6, 9, 10),
+	N14578T("flamenco", ul()),
+	N13579E("neapolitan major", ul()),
+	N13578E("neapolitan minor", ul()),
+	N14679T("romanian major", ul()),
+	N23679T("romanian minor", ul()),
+	N34679T("hungarian major", ul()),
+	N23678E("hungarian minor", ul()),
+	N2469T("prometheus", ul()),
 	// Japanese scales
-	IN(0, 1, 3, 5, 7, 8, 10),
-	IWATO(0, 1, 5, 6, 10),
-	INSEN(0, 1, 5, 7, 10),
-	MIYAKO_BUSHI(0, 1, 5, 7, 10),
-	RYO(0, 2, 4, 7, 9),
-	RITSU(0, 2, 5, 7, 9),
-	YO(0, 2, 5, 7, 9),
-	MINYO(0, 3, 5, 7, 10),
-	HIRAJOSHI(0, 4, 6, 7, 11),
+	N13578T("in", ul()),
+	N156T("iwato", ul()),
+	N157T("insen", ul("miyako bushi")),
+	N467E("hirajoshi", ul()),
 	// World
-	PERSIAN(0, 1, 4, 5, 6, 8, 11),
+	N14568E("persian", ul()),
 	// Various
-	DOUBLE_HARMONIC(0, 1, 4, 5, 7, 8, 11),
-	WHOLE_TONE(0, 2, 4, 6, 8, 10),
-	DIMINISHED_HALF(0, 1, 3, 4, 6, 7, 9, 10),
-	DIMINISHED_WHOLE(0, 2, 3, 5, 6, 8, 9, 11),
-	TRITONE(0, 1, 4, 6, 7, 10),
-	TRITONE_TWO_SEMITONE(0, 1, 2, 6, 7, 8);
+	N14578E("double harmonic", ul()),
+	N2468T("whole tone", ul()),
+	N134679T("diminished half", ul()),
+	N235689E("diminished whole", ul()),
+	N1467T("tritone", ul()),
+	N12678("tritone two semitone", ul());
 
+	/**
+	 * Returns a Scale from standard or alternative name.
+	 *
+	 * @param name the standard or alternative name of a Scale
+	 * @return the corresponding Scale
+	 */
+	public static Scale fromName(String name) {
+		for (Scale scale : Scale.values()) {
+			if (scale.name.equalsIgnoreCase(name))
+				return scale;
+			for (String alternativeName : scale.alternativeNames)
+				if (alternativeName.equalsIgnoreCase(name))
+					return scale;
+		}
+		return null;
+	}
+
+	/** Name of the Scale */
+	public final String name;
+	/** Alternative names of the Scale */
+	public final List<String> alternativeNames;
 	/** List of intervals (in half-steps) the Scale is composed of */
 	public final List<Interval> intervalList;
 
-	private Scale(Integer... steps) {
-		List<Interval> intervals = new ArrayList<>();
-		for (int step : steps)
-			intervals.add(Interval.from(step));
-		this.intervalList = Collections.unmodifiableList(intervals);
+	private Scale(String name, List<String> alternativeNames) {
+		this.intervalList = createIntervalListFromConstantName();
+		this.name = name;
+		this.alternativeNames = alternativeNames;
+	}
+
+	private List<Interval> createIntervalListFromConstantName() {
+		List<Interval> intervalList = new ArrayList<>();
+		String constantName = name();
+		for (int index = 0; index < constantName.length(); index++) {
+			char intervalStepsChar = constantName.charAt(index);
+			int intervalSteps = Interval.OUT.steps;
+			switch (intervalStepsChar) {
+				case 'N':
+					intervalSteps = 0;
+					break;
+				case 'T':
+					intervalSteps = 10;
+					break;
+				case 'E':
+					intervalSteps = 11;
+					break;
+				default:
+					intervalSteps = intervalStepsChar - 48;
+					break;
+			}
+			Interval interval = Interval.from(intervalSteps);
+			assert (interval != null);
+			intervalList.add(interval);
+		}
+		return Collections.unmodifiableList(intervalList);
 	}
 
 	@Override
-	public String toString() {
-		return name().toLowerCase().replace('_', ' ');
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public List<String> getAlternativeNames() {
+		return alternativeNames;
 	}
 }

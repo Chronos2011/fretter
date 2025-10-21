@@ -18,11 +18,11 @@ public class FingeringTest {
 	@Before
 	public void setup() {
 		boardOptions = new BoardOptions();
-		boardOptions.tuning = Tuning.EADGBE;
+		boardOptions.tuning = Tuning.fromName("EADGBE");
 		boardOptions.fretCount = 15;
 		board = new Board(boardOptions);
 		chordOptions = new ChordOptions();
-		chordOptions.chord = Chord.MAJ;
+		chordOptions.chord = Chord.fromName("maj");
 		chordOptions.pitch = Pitch.C_4;
 		chordOptions.position = new Position(0, 8);
 		chordOptions.maxWidth = 4;

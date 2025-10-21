@@ -1,9 +1,13 @@
 package com.github.chronos2011.fretter.options;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.github.chronos2011.fretter.domain.Board;
 import com.github.chronos2011.fretter.domain.Fret;
 import com.github.chronos2011.fretter.domain.FretWindow;
 import com.github.chronos2011.fretter.domain.library.Interval;
+import com.github.chronos2011.fretter.domain.library.Nameable;
 import com.github.chronos2011.fretter.domain.library.Scale;
 import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 
@@ -14,7 +18,7 @@ public class RenderOptions {
     /**
      * Enum FretLabeling enumerates the various fret labeling options available.
      */
-    public static enum FretLabeling {
+    public static enum FretLabeling implements Nameable {
         /** Labels {@link Fret}s with MIDI pitch indices */
         MIDI_PITCH,
         /** Labels {@link Fret}s with human-readable note names */
@@ -25,6 +29,16 @@ public class RenderOptions {
         INTERVAL_STEPS,
         /** Labels {@link Fret}s with a {@link Scale} membership indicator */
         SCALE_MEMBERSHIP;
+
+        @Override
+        public String getName() {
+            return name().toLowerCase();
+        }
+
+        @Override
+        public List<String> getAlternativeNames() {
+            return Collections.emptyList();
+        }
     }
 
     /**
