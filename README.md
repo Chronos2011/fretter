@@ -111,3 +111,7 @@ For a hands-on introduction to *fretter*, check out our [walkthrough](WALKTHROUG
 ## Option reference
 
 You can get detailed information in the [Option reference](REFERENCE.md), which should answer all your questions.
+
+## Change log
+
+The change log can be found here: [Change log](CHANGELOG.md)
