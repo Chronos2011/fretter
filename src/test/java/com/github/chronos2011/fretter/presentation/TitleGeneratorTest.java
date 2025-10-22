@@ -26,13 +26,20 @@ public class TitleGeneratorTest {
 	}
 
 	@Test
-	public void testGenerateTitleBoard() {
+	public void testGenerateBoardTitle() {
 		generator = new TitleGenerator(applicationOptions);
 		assertEquals("Board (standard bass tuning, 12 frets)", generator.generateTitle());
 	}
 
 	@Test
-	public void testGenerateTitleScale() {
+	public void testGenerateBoardTitle_AlternativeName() {
+		applicationOptions.boardOptions.tuningName = "TEST";
+		generator = new TitleGenerator(applicationOptions);
+		assertEquals("Board (TEST tuning, 12 frets)", generator.generateTitle());
+	}
+
+	@Test
+	public void testGenerateScaleTitle() {
 		applicationOptions.operation = Operation.SCALE;
 		applicationOptions.scaleOptions = new ScaleOptions();
 		applicationOptions.scaleOptions.scale = Scale.fromName("minor");
@@ -42,7 +49,18 @@ public class TitleGeneratorTest {
 	}
 
 	@Test
-	public void testGenerateTitleArpeggio() {
+	public void testGenerateScaleTitle_AlternativeName() {
+		applicationOptions.operation = Operation.SCALE;
+		applicationOptions.scaleOptions = new ScaleOptions();
+		applicationOptions.scaleOptions.scale = Scale.fromName("minor");
+		applicationOptions.scaleOptions.scaleName = "TEST";
+		applicationOptions.scaleOptions.pitchClass = PitchClass.E_;
+		generator = new TitleGenerator(applicationOptions);
+		assertEquals("Scale E TEST (standard bass tuning)", generator.generateTitle());
+	}
+
+	@Test
+	public void testGenerateArpeggioTitle() {
 		applicationOptions.operation = Operation.ARPEGGIO;
 		applicationOptions.arpeggioOptions = new ArpeggioOptions();
 		applicationOptions.arpeggioOptions.chord = Chord.fromName("maj7");
@@ -52,12 +70,34 @@ public class TitleGeneratorTest {
 	}
 
 	@Test
-	public void testGenerateTitleChord() {
+	public void testGenerateArpeggioTitle_AlternativeName() {
+		applicationOptions.operation = Operation.ARPEGGIO;
+		applicationOptions.arpeggioOptions = new ArpeggioOptions();
+		applicationOptions.arpeggioOptions.chord = Chord.fromName("maj7");
+		applicationOptions.arpeggioOptions.chordName = "TEST";
+		applicationOptions.arpeggioOptions.pitchClass = PitchClass.D_;
+		generator = new TitleGenerator(applicationOptions);
+		assertEquals("Arpeggio D TEST (standard bass tuning)", generator.generateTitle());
+	}
+
+	@Test
+	public void testGenerateChordTitle() {
 		applicationOptions.operation = Operation.CHORD;
 		applicationOptions.chordOptions = new ChordOptions();
 		applicationOptions.chordOptions.chord = Chord.fromName("aug");
 		applicationOptions.chordOptions.pitchClass = PitchClass.C_;
 		generator = new TitleGenerator(applicationOptions);
 		assertEquals("Chord C augmented (standard bass tuning)", generator.generateTitle());
+	}
+
+	@Test
+	public void testGenerateChordTitle_AlternativeName() {
+		applicationOptions.operation = Operation.CHORD;
+		applicationOptions.chordOptions = new ChordOptions();
+		applicationOptions.chordOptions.chord = Chord.fromName("aug");
+		applicationOptions.chordOptions.chordName = "TEST";
+		applicationOptions.chordOptions.pitchClass = PitchClass.C_;
+		generator = new TitleGenerator(applicationOptions);
+		assertEquals("Chord C TEST (standard bass tuning)", generator.generateTitle());
 	}
 }

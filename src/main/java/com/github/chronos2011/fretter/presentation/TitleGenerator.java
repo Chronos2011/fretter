@@ -1,7 +1,9 @@
 package com.github.chronos2011.fretter.presentation;
 
 import com.github.chronos2011.fretter.options.ApplicationOptions;
+import com.github.chronos2011.fretter.options.ArpeggioOptions;
 import com.github.chronos2011.fretter.options.BoardOptions;
+import com.github.chronos2011.fretter.options.ChordOptions;
 
 /**
  * Class TitleGenerator generates diagram titles.
@@ -40,29 +42,39 @@ public class TitleGenerator {
 
 	private String generateBoardTitle() {
 		BoardOptions options = applicationOptions.boardOptions;
-
-		String tuning = options.tuning.getName();
-		return String.format("Board (%s tuning, %d frets)", tuning, options.fretCount);
+		return String.format("Board (%s tuning, %d frets)", getTuningName(), options.fretCount);
 	}
 
 	private String generateScaleTitle() {
-		String tuning = applicationOptions.boardOptions.tuning.getName();
 		String root = applicationOptions.scaleOptions.pitchClass.getNoteName();
-		String scale = applicationOptions.scaleOptions.scale.getName();
-		return String.format("Scale %s %s (%s tuning)", root, scale, tuning);
+		return String.format("Scale %s %s (%s tuning)", root, getScaleName(), getTuningName());
 	}
 
 	private String generateArpeggioTitle() {
-		String tuning = applicationOptions.boardOptions.tuning.getName();
-		String root = applicationOptions.arpeggioOptions.pitchClass.getNoteName();
-		String chord = applicationOptions.arpeggioOptions.chord.getName();
-		return String.format("Arpeggio %s %s (%s tuning)", root, chord, tuning);
+		ArpeggioOptions options = applicationOptions.arpeggioOptions;
+		String root = options.pitchClass.getNoteName();
+		String chord = options.chordName != null ? options.chordName : options.chord.getName();
+		return String.format("Arpeggio %s %s (%s tuning)", root, chord, getTuningName());
 	}
 
 	private String generateChordTitle() {
-		String tuning = applicationOptions.boardOptions.tuning.getName();
+		ChordOptions options = applicationOptions.chordOptions;
 		String root = applicationOptions.chordOptions.pitchClass.getNoteName();
-		String chord = applicationOptions.chordOptions.chord.getName();
-		return String.format("Chord %s %s (%s tuning)", root, chord, tuning);
+		String chord = options.chordName != null ? options.chordName : options.chord.getName();
+		return String.format("Chord %s %s (%s tuning)", root, chord, getTuningName());
+	}
+
+	private String getTuningName() {
+		if (applicationOptions.boardOptions.tuningName != null)
+			return applicationOptions.boardOptions.tuningName;
+		else
+			return applicationOptions.boardOptions.tuning.getName();
+	}
+
+	private String getScaleName() {
+		if (applicationOptions.scaleOptions.scaleName != null)
+			return applicationOptions.scaleOptions.scaleName;
+		else
+			return applicationOptions.scaleOptions.scale.getName();
 	}
 }

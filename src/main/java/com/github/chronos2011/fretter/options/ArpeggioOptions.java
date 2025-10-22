@@ -10,6 +10,8 @@ import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 public class ArpeggioOptions {
 	/** {@link Chord} to be disassembled into an arpeggio */
 	public Chord chord;
+	/** String indicating the {@link Chord} name originally selected by the user */
+	public String chordName;
 	/** {@link PitchClass} of the {@link Chord} */
 	public PitchClass pitchClass;
 }

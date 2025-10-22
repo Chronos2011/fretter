@@ -3,6 +3,7 @@ package com.github.chronos2011.fretter.options;
 import com.github.chronos2011.fretter.domain.Position;
 import com.github.chronos2011.fretter.domain.library.Chord;
 import com.github.chronos2011.fretter.domain.library.PitchClass;
+import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 
 /**
  * Class ChordOptions groups options that apply to a chord (in {@link Operation.CHORD}).
@@ -24,6 +25,8 @@ public class ChordOptions {
 
 	/** {@link Chord} to be generated */
 	public Chord chord;
+	/** String indicating the {@link Chord} name originally selected by the user */
+	public String chordName;
 	/** {@link PitchClass} of the {@link Chord} */
 	public PitchClass pitchClass;
 	/** {@link Position} at which the {@link Chord} should be constructed */

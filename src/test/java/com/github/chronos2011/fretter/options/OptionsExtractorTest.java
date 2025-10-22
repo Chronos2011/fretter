@@ -89,6 +89,13 @@ public class OptionsExtractorTest {
 	}
 
 	@Test
+	public void testExtract_Board_AlternativeTuningName() throws IOException {
+		applicationOptions = optionsExtractor.extract(new String[] { "-o", "board", "-t", "DADGAD" });
+		assertEquals(Operation.BOARD, applicationOptions.operation);
+		assertEquals("DADGAD", applicationOptions.boardOptions.tuningName);
+	}
+
+	@Test
 	public void testExtract_Board_TuningInvalid() throws IOException, ParseException {
 		OptionsExtractor mock = mock(OptionsExtractor.class);
 		when(mock.extract(any())).thenCallRealMethod();
@@ -219,6 +226,13 @@ public class OptionsExtractorTest {
 	}
 
 	@Test
+	public void testExtract_Scale_AlternativeScaleName() throws IOException {
+		applicationOptions = optionsExtractor.extract(new String[] { "-o", "scale", "-s", "aeolian", "-r", "E" });
+		assertEquals(Operation.SCALE, applicationOptions.operation);
+		assertEquals("aeolian", applicationOptions.scaleOptions.scaleName);
+	}
+
+	@Test
 	public void testExtract_Scale_DistributionPattern() throws IOException {
 		applicationOptions = optionsExtractor
 				.extract(new String[] { "-oSCALE", "-tDADGAD", "-sDORIAN", "-rE", "-p0,12", "-n3" });
@@ -313,6 +327,13 @@ public class OptionsExtractorTest {
 	}
 
 	@Test
+	public void testExtract_Arpeggio_AlternativeArpeggioName() throws IOException {
+		applicationOptions = optionsExtractor.extract(new String[] { "-o", "arpeggio", "-c", "MAJ7", "-r", "E" });
+		assertEquals(Operation.ARPEGGIO, applicationOptions.operation);
+		assertEquals("MAJ7", applicationOptions.arpeggioOptions.chordName);
+	}
+
+	@Test
 	public void testExtract_Chord() throws IOException {
 		applicationOptions = optionsExtractor
 				.extract(new String[] { "-oCHORD", "-tDADGAD", "-cMAJ7", "-rE", "-p1,5", "-w4", "-d0" });
@@ -324,6 +345,13 @@ public class OptionsExtractorTest {
 		assertEquals(5, applicationOptions.chordOptions.position.fretIndex);
 		assertEquals(4, applicationOptions.chordOptions.maxWidth);
 		assertEquals(0, applicationOptions.chordOptions.maxDeviation);
+	}
+
+	@Test
+	public void testExtract_Chord_AlternativeChordName() throws IOException {
+		applicationOptions = optionsExtractor.extract(new String[] { "-oCHORD", "-cMAJ7", "-rE", "-p8" });
+		assertEquals(Operation.CHORD, applicationOptions.operation);
+		assertEquals("MAJ7", applicationOptions.chordOptions.chordName);
 	}
 
 	@Test

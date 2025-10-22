@@ -196,6 +196,7 @@ public class OptionsExtractor {
         if (boardOptions.fretCount < 1)
             throw new DomainException("Fret count must be >= 1");
         boardOptions.tuning = (Tuning) getParsedEnum("tuning", Tuning.class, Tuning.fromName("standard guitar"));
+        boardOptions.tuningName = commandLine.getParsedOptionValue("tuning", null);
         return boardOptions;
     }
 
@@ -205,6 +206,7 @@ public class OptionsExtractor {
             return null;
         ScaleOptions scaleOptions = new ScaleOptions();
         scaleOptions.scale = (Scale) getParsedEnum("scale", Scale.class);
+        scaleOptions.scaleName = commandLine.getParsedOptionValue("scale", null);
         scaleOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
         applicationOptions.renderOptions.preferFlat = scaleOptions.pitchClass.isFlat();
         boolean hasPosition = commandLine.hasOption("position");
@@ -230,6 +232,7 @@ public class OptionsExtractor {
             return null;
         ArpeggioOptions arpeggioOptions = new ArpeggioOptions();
         arpeggioOptions.chord = (Chord) getParsedEnum("chord", Chord.class);
+        arpeggioOptions.chordName = commandLine.getParsedOptionValue("chord", null);
         arpeggioOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
         applicationOptions.renderOptions.preferFlat = arpeggioOptions.pitchClass.isFlat();
         return arpeggioOptions;
@@ -241,6 +244,7 @@ public class OptionsExtractor {
             return null;
         ChordOptions chordOptions = new ChordOptions();
         chordOptions.chord = (Chord) getParsedEnum("chord", Chord.class);
+        chordOptions.chordName = commandLine.getParsedOptionValue("chord", null);
         chordOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
         applicationOptions.renderOptions.preferFlat = chordOptions.pitchClass.isFlat();
         chordOptions.position = getPosition("position");

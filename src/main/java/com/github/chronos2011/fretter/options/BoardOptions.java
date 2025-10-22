@@ -10,6 +10,8 @@ import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 public class BoardOptions {
 	/** {@link Tuning} of the {@link Board} */
 	public Tuning tuning;
+	/** String indicating the {@link Tuning} name originally selected by the user */
+	public String tuningName;
 	/** Number of frets on the {@link Board}; the instrument nut is effectively adding another fret */
 	public int fretCount;
 }

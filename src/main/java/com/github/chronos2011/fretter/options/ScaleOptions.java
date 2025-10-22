@@ -27,6 +27,8 @@ public class ScaleOptions {
 
 	/** {@link Scale} to be generated */
 	public Scale scale;
+	/** String indicating the {@link Scale} name originally selected by the user */
+	public String scaleName;
 	/** {@link PitchClass} of the {@link Scale} */
 	public PitchClass pitchClass;
 	/** Defines a "working window" to be used; mutually exclusive with a {@link DistributionPattern} */
