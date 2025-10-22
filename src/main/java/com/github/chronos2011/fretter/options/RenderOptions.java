@@ -8,6 +8,7 @@ import com.github.chronos2011.fretter.domain.Fret;
 import com.github.chronos2011.fretter.domain.FretWindow;
 import com.github.chronos2011.fretter.domain.library.Interval;
 import com.github.chronos2011.fretter.domain.library.Nameable;
+import com.github.chronos2011.fretter.domain.library.Pitch;
 import com.github.chronos2011.fretter.domain.library.Scale;
 import com.github.chronos2011.fretter.options.ApplicationOptions.Operation;
 
@@ -48,6 +49,8 @@ public class RenderOptions {
     public FretWindow renderWindow;
     /** {@link FretLabeling} to be used in diagrams */
     public FretLabeling fretLabeling;
+    /** Flag indicating whether equivalent flat {@link Pitch}es should be rendered */
+    public boolean preferFlat;
     /** Result page (zero-indexed) to be shown in {@link Operation#CHORD} */
     public int page;
     /** Result page size to be used in {@link Operation#CHORD} */

@@ -201,6 +201,14 @@ public class OptionsExtractorTest {
 	}
 
 	@Test
+	public void testExtract_PreferFlat() throws IOException, ParseException {
+		applicationOptions = optionsExtractor.extract(new String[] { "-o", "scale", "-s", "DORIAN", "-r", "E" });
+		assertEquals(false, applicationOptions.renderOptions.preferFlat);
+		applicationOptions = optionsExtractor.extract(new String[] { "-o", "scale", "-s", "DORIAN", "-r", "Eb" });
+		assertEquals(true, applicationOptions.renderOptions.preferFlat);
+	}
+
+	@Test
 	public void testExtract_Scale() throws IOException {
 		applicationOptions = optionsExtractor
 				.extract(new String[] { "-o", "scale", "-t", "DADGAD", "-s", "DORIAN", "-r", "E" });

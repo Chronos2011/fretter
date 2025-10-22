@@ -109,11 +109,11 @@ public class OptionsExtractor {
             checkForHelp();
             checkForList();
             applicationOptions = parseApplicationOptions();
-            applicationOptions.renderOptions = parseRenderOptions(applicationOptions.operation);
+            applicationOptions.renderOptions = parseRenderOptions(applicationOptions);
             applicationOptions.boardOptions = parseBoardOptions();
-            applicationOptions.scaleOptions = parseScaleOptions();
-            applicationOptions.arpeggioOptions = parseArpeggioOptions();
-            applicationOptions.chordOptions = parseChordOptions();
+            applicationOptions.scaleOptions = parseScaleOptions(applicationOptions);
+            applicationOptions.arpeggioOptions = parseArpeggioOptions(applicationOptions);
+            applicationOptions.chordOptions = parseChordOptions(applicationOptions);
             return applicationOptions;
         } catch (DomainException exception) {
             printHelpAndExit(exception.getMessage());
@@ -165,11 +165,12 @@ public class OptionsExtractor {
         return applicationOptions;
     }
 
-    private RenderOptions parseRenderOptions(Operation operation) throws DomainException, ParseException {
+    private RenderOptions parseRenderOptions(ApplicationOptions applicationOptions)
+            throws DomainException, ParseException {
         RenderOptions renderOptions = new RenderOptions();
         renderOptions = new RenderOptions();
         FretLabeling defaultLabeling;
-        switch (operation) {
+        switch (applicationOptions.operation) {
             case BOARD:
                 defaultLabeling = FretLabeling.NOTE_NAME;
                 break;
@@ -178,6 +179,7 @@ public class OptionsExtractor {
                 break;
         }
         renderOptions.fretLabeling = (FretLabeling) getParsedEnum("label", FretLabeling.class, defaultLabeling);
+        renderOptions.preferFlat = false;
         renderOptions.renderWindow = (FretWindow) getFretWindow("render-window");
         renderOptions.page = commandLine.getParsedOptionValue("page", 0);
         if (renderOptions.page < 0)
@@ -197,12 +199,14 @@ public class OptionsExtractor {
         return boardOptions;
     }
 
-    private ScaleOptions parseScaleOptions() throws DomainException, ParseException {
+    private ScaleOptions parseScaleOptions(ApplicationOptions applicationOptions)
+            throws DomainException, ParseException {
         if (applicationOptions.operation != Operation.SCALE)
             return null;
         ScaleOptions scaleOptions = new ScaleOptions();
         scaleOptions.scale = (Scale) getParsedEnum("scale", Scale.class);
         scaleOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
+        applicationOptions.renderOptions.preferFlat = scaleOptions.pitchClass.isFlat();
         boolean hasPosition = commandLine.hasOption("position");
         boolean hasNotesPerString = commandLine.hasOption("notes-per-string");
         boolean hasWorkingWindow = commandLine.hasOption("working-window");
@@ -215,26 +219,30 @@ public class OptionsExtractor {
         } else if (!hasPosition && !hasNotesPerString && hasWorkingWindow) {
             scaleOptions.window = (FretWindow) getFretWindow("working-window");
         } else if (hasPosition || hasNotesPerString || hasWorkingWindow) {
-            throw new DomainException("Provide either 'position' and 'notes-per-string' or 'working-window' or none");
+            throw new DomainException("Provide either /*  */'position' and 'notes-per-string' or 'working-window' or none");
         }
         return scaleOptions;
     }
 
-    private ArpeggioOptions parseArpeggioOptions() throws DomainException, ParseException {
+    private ArpeggioOptions parseArpeggioOptions(ApplicationOptions applicationOptions)
+            throws DomainException, ParseException {
         if (applicationOptions.operation != Operation.ARPEGGIO)
             return null;
         ArpeggioOptions arpeggioOptions = new ArpeggioOptions();
         arpeggioOptions.chord = (Chord) getParsedEnum("chord", Chord.class);
         arpeggioOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
+        applicationOptions.renderOptions.preferFlat = arpeggioOptions.pitchClass.isFlat();
         return arpeggioOptions;
     }
 
-    private ChordOptions parseChordOptions() throws DomainException, ParseException {
+    private ChordOptions parseChordOptions(ApplicationOptions applicationOptions)
+            throws DomainException, ParseException {
         if (applicationOptions.operation != Operation.CHORD)
             return null;
         ChordOptions chordOptions = new ChordOptions();
         chordOptions.chord = (Chord) getParsedEnum("chord", Chord.class);
         chordOptions.pitchClass = (PitchClass) getParsedEnum("root", PitchClass.class);
+        applicationOptions.renderOptions.preferFlat = chordOptions.pitchClass.isFlat();
         chordOptions.position = getPosition("position");
         chordOptions.maxWidth = commandLine.getParsedOptionValue("width", 5);
         if (chordOptions.maxWidth < 1)

@@ -291,6 +291,18 @@ public enum Pitch implements Nameable {
 	}
 
 	/**
+	 * Returns the flat equivalent to this Pitch if available.
+	 *
+	 * @return the flat equivalent to this Pitch
+	 */
+	public Pitch getFlatEquivalent() {
+		for (Pitch pitch : Pitch.values())
+			if (pitch.midiIndex == this.midiIndex && pitch.name().charAt(1) == 'F')
+				return pitch;
+		return this;
+	}
+
+	/**
 	 * Returns the {@link PitchClass} of this Pitch.
 	 *
 	 * @return the {@link PitchClass} of this Pitch
@@ -307,12 +319,15 @@ public enum Pitch implements Nameable {
 	 *
 	 * @return the human-readable not name of the Pitch
 	 */
-	public String getNoteName() {
+	public String getNoteName(boolean preferFlat) {
 		if (this == UNKNOWN)
 			return "???";
-		String base = name().substring(0, 1);
+		Pitch pitch = this;
+		if (preferFlat)
+			pitch = pitch.getFlatEquivalent();
+		String base = pitch.name().substring(0, 1);
 		String modifier = " ";
-		switch (name().substring(1, 2)) {
+		switch (pitch.name().substring(1, 2)) {
 			case "S":
 				if (!Configuration.hostIsWindows)
 					modifier = "\u266F";
@@ -326,7 +341,7 @@ public enum Pitch implements Nameable {
 					modifier = "b";
 				break;
 		}
-		String octave = name().substring(2, 3);
+		String octave = pitch.name().substring(2, 3);
 		switch (octave) {
 			case "M":
 				if (!Configuration.hostIsWindows)

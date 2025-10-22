@@ -54,6 +54,15 @@ public enum PitchClass implements Nameable {
 	}
 
 	/**
+	 * Returns a flag indicating whether the PitchClass is flat.
+	 *
+	 * @return a flag indicating whether the PitchClass is flat
+	 */
+	public boolean isFlat() {
+		return name().charAt(1) == 'F';
+	}
+
+	/**
 	 * Returns the human-readable not name of the PitchClass.
 	 *
 	 * @return the human-readable not name of the PitchClass

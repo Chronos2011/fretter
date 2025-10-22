@@ -23,15 +23,25 @@ public class PitchTest {
 		assertEquals(Pitch.C_5, Pitch.C_4.raise(12));
 	}
 
-	@Test public void getPitchClass() {
+	@Test
+	public void getPitchClass() {
 		assertEquals(PitchClass.CS, Pitch.CS7.getPitchClass());
 	}
 
 	@Test
+	public void testGetFlatEquivalent() {
+		assertEquals(Pitch.EF3, Pitch.DS3.getFlatEquivalent());
+		assertEquals(Pitch.C_3, Pitch.C_3.getFlatEquivalent());
+		assertEquals(Pitch.EF3, Pitch.EF3.getFlatEquivalent());
+	}
+
+	@Test
 	public void testGetNoteName() {
-		assertEquals("???", Pitch.UNKNOWN.getNoteName());
-		assertEquals("D\u266F\u2088", Pitch.DS8.getNoteName());
-		assertEquals("D\u266D\u208B", Pitch.DFM.getNoteName());
+		assertEquals("???", Pitch.UNKNOWN.getNoteName(false));
+		assertEquals("D\u266F\u2088", Pitch.DS8.getNoteName(false));
+		assertEquals("E\u266D\u2088", Pitch.DS8.getNoteName(true));
+		assertEquals("D\u266D\u208B", Pitch.DFM.getNoteName(false));
+		assertEquals("D\u266D\u208B", Pitch.DFM.getNoteName(true));
 	}
 
 	@Test

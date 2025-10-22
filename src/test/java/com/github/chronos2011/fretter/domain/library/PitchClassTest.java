@@ -10,6 +10,12 @@ public class PitchClassTest {
 		assertEquals(Pitch.AS0, PitchClass.AS.getTargetPitch());
 	}
 
+	@Test public void testIsFlat() {
+		assertEquals(true, PitchClass.DF.isFlat());
+		assertEquals(false, PitchClass.CS.isFlat());
+		assertEquals(false, PitchClass.C_.isFlat());
+	}
+
 	@Test
 	public void testGetNoteName() {
 		assertEquals("??", PitchClass.UNKNOWN.getNoteName());
