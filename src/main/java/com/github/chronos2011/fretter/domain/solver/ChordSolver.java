@@ -224,6 +224,7 @@ public class ChordSolver extends BaseSolver {
 			System.out.println(" * Removed " + fretsLeftOfBar + " with frets left of bar");
 			System.out.println(" * Removed " + fretsTopLeftOfBar + " with frets top left of bar");
 			System.out.println("   => " + fingerings.size() + " remaining");
+			System.out.println();
 		}
 		return fingerings;
 	}

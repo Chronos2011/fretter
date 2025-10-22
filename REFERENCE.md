@@ -7,7 +7,8 @@
 ```
 $ ./fretter.sh -h
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
 
 usage: Fretter [options]
  -a,--label <label>                 the fret labeling to be used, INTERVAL_NAME (NOTE_NAME for operation 'board') if not
@@ -35,7 +36,8 @@ usage: Fretter [options]
  -p,--position <position>           either the fret x position to be used (format: 'x') or string position x and fret
                                     position y to be used (format: 'x,y' - no whitespace), mandatory for operations
                                     'chord' and 'scale' with distribution pattern
- -r,--root <pitch>                  the root pitch to be used, mandatory for operations 'scale', 'arpeggio', and 'chord'
+ -r,--root <pitch-class>            the root pitch class to be used, mandatory for operations 'scale', 'arpeggio', and
+                                    'chord'
  -s,--scale <scale>                 the scale to be used, mandatory for operation 'scale'
  -t,--tuning <tuning>               the tuning to be used, EADGBE if not set
  -v,--verbosity <level>             the level of verbosity to be used
@@ -55,12 +57,15 @@ The options `-a`, `-c`, `-o`, `-r`, and `-s` (resp. `--label`, `--chord`, `--ope
 ```
 $ ./fretter.sh -l LABEL
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
-FretLabeling: MIDI_PITCH, NOTE_NAME, INTERVAL_SYMBOL, INTERVAL_STEPS, SCALE_MEMBERSHIP
+
+FretLabeling: interval_steps, interval_symbol, midi_pitch, note_name, scale_membership
+
+ * Named options that contain multiple words must be enclosed in "double quotes" *
 ```
 
-*Named option values are case insensitve.*
+*Named option values are case insensitve, but are re-used in dialog titles. Named options that contain multiple words must be enclosed in "double quotes".*
 
 ## Mode of operation (-o, --operation)
 
@@ -76,10 +81,12 @@ The most important option is the selection of the mode of operation. The followi
 ```
 $ ./fretter.sh -oBOARD -f12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+Board (standard guitar tuning, 12 frets)
+
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
 E ₅├──F ₅──┼──F♯₅──┼──G ₅──┼──G♯₅──┼──A ₅──┼──A♯₅──┼──B ₅──┼──C ₆──┼──C♯₆──┼──D ₆──┼──D♯₆──┼──E ₆──┼
 B ₄├──C ₅──┼──C♯₅──┼──D ₅──┼──D♯₅──┼──E ₅──┼──F ₅──┼──F♯₅──┼──G ₅──┼──G♯₅──┼──A ₅──┼──A♯₅──┼──B ₅──┼
@@ -88,7 +95,7 @@ D ₄├──D♯₄──┼──E ₄──┼──F ₄──┼──F♯
 A ₃├──A♯₃──┼──B ₃──┼──C ₄──┼──C♯₄──┼──D ₄──┼──D♯₄──┼──E ₄──┼──F ₄──┼──F♯₄──┼──G ₄──┼──G♯₄──┼──A ₄──┼
 E ₃├──F ₃──┼──F♯₃──┼──G ₃──┼──G♯₃──┼──A ₃──┼──A♯₃──┼──B ₃──┼──C ₄──┼──C♯₄──┼──D ₄──┼──D♯₄──┼──E ₄──┼
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
  * Hint: Be aware that octave indices displayed conform to MIDI pitch naming (where middle C corresponds to C₄). *
 ```
@@ -100,10 +107,12 @@ Specifies the number of frets of the instrument. Implicitly, another fret will b
 ```
 $ ./fretter.sh -oboard -f4
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4   
+Board (standard guitar tuning, 4 frets)
+
+ 0     1       2       3       4
 
 E ₅├──F ₅──┼──F♯₅──┼──G ₅──┼──G♯₅──┼
 B ₄├──C ₅──┼──C♯₅──┼──D ₅──┼──D♯₅──┼
@@ -112,7 +121,7 @@ D ₄├──D♯₄──┼──E ₄──┼──F ₄──┼──F♯
 A ₃├──A♯₃──┼──B ₃──┼──C ₄──┼──C♯₄──┼
 E ₃├──F ₃──┼──F♯₃──┼──G ₃──┼──G♯₃──┼
 
- 0     1       2       3       4   
+ 0     1       2       3       4
 
  * Hint: Be aware that octave indices displayed conform to MIDI pitch naming (where middle C corresponds to C₄). *
 ```
@@ -122,19 +131,21 @@ E ₃├──F ₃──┼──F♯₃──┼──G ₃──┼──G♯
 This option is used to change the tuning of an instrument (and implicitly define the number of strings):
 
 ```
-$ ./fretter.sh -oboard -f12 -tSTANDARD_BASS
+$ ./fretter.sh -oboard -f12 -t"standard bass"
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+Board (standard bass tuning, 12 frets)
+
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
 G ₃├──G♯₃──┼──A ₃──┼──A♯₃──┼──B ₃──┼──C ₄──┼──C♯₄──┼──D ₄──┼──D♯₄──┼──E ₄──┼──F ₄──┼──F♯₄──┼──G ₄──┼
 D ₃├──D♯₃──┼──E ₃──┼──F ₃──┼──F♯₃──┼──G ₃──┼──G♯₃──┼──A ₃──┼──A♯₃──┼──B ₃──┼──C ₄──┼──C♯₄──┼──D ₄──┼
 A ₂├──A♯₂──┼──B ₂──┼──C ₃──┼──C♯₃──┼──D ₃──┼──D♯₃──┼──E ₃──┼──F ₃──┼──F♯₃──┼──G ₃──┼──G♯₃──┼──A ₃──┼
 E ₂├──F ₂──┼──F♯₂──┼──G ₂──┼──G♯₂──┼──A ₂──┼──A♯₂──┼──B ₂──┼──C ₃──┼──C♯₃──┼──D ₃──┼──D♯₃──┼──E ₃──┼
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
  * Hint: Be aware that octave indices displayed conform to MIDI pitch naming (where middle C corresponds to C₄). *
 ```
@@ -144,12 +155,14 @@ E ₂├──F ₂──┼──F♯₂──┼──G ₂──┼──G♯
 Depending of user preference, different variations of fret labeling may be used:
 
 ```
-$ ./fretter.sh -oScale -sMajor -rE_3 -f12 -aScale_membership
+$ ./fretter.sh -oScale -sMajor -rE -f12 -aScale_membership
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+Scale E Major (standard guitar tuning)
+
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
  ◉ ├───────┼── ○ ──┼───────┼── ○ ──┼── ○ ──┼───────┼── ○ ──┼───────┼── ○ ──┼───────┼── ○ ──┼── ◉ ──┼
  ○ ├───────┼── ○ ──┼───────┼── ○ ──┼── ◉ ──┼───────┼── ○ ──┼───────┼── ○ ──┼── ○ ──┼───────┼── ○ ──┼
@@ -158,21 +171,23 @@ Fretter v0.1.2 - Fretboard Diagram Generator
  ○ ├───────┼── ○ ──┼───────┼── ○ ──┼───────┼── ○ ──┼── ◉ ──┼───────┼── ○ ──┼───────┼── ○ ──┼── ○ ──┼
  ◉ ├───────┼── ○ ──┼───────┼── ○ ──┼── ○ ──┼───────┼── ○ ──┼───────┼── ○ ──┼───────┼── ○ ──┼── ◉ ──┼
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
 ```
 
 ## Root (-r, --root)
 
-All modes of operation except `board` require that you specify a root pitch:
+All modes of operation except `board` require that you specify a root pitch class:
 
 ```
-$ ./fretter.sh -oscale -smajor -rFS2 -f12
+$ ./fretter.sh -oscale -smajor -rF# -f12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+Scale F♯ major (standard guitar tuning)
+
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
    ├── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼
  4 ├───────┼── 5 ──┼───────┼── 6 ──┼───────┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼── 4 ──┼
@@ -181,31 +196,25 @@ Fretter v0.1.2 - Fretboard Diagram Generator
    ├── 3 ──┼── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼
    ├── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
 ```
 
-Pitches can be remembered easily if their format is understood. These are composed of three consecutive characters with the following meanings:
-
-|Character|Meaning|Possible values|
-|---|---|---|
-|1st|Note name| `A`, `B`, `C`, `D`, `E`, `F`, `G` |
-|2nd|Modifier| `S` (sharp), `_` (natural), `F` (flat)|
-|3rd|Octave| `M` (-1), `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`|
-
-Please take note: *according to <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>, octave indices increase from note `B` to `C`.*
+Possible values for pitch classeses are: `Ab`, `A`, `A#`, `Bb`, `B`, `B#`, `Cb`, `C`, `C#`, `Db`, `D`, `D#`, `Eb`, `E`, `E#`, `Fb`, `F`, `F#`, `Gb`, `G`, and `G#`. Entering a flat note will result the generated diagrams to use flat notes as well.
 
 ## Scale (-s, --scale)
 
 The `scale` mode of operation requires that you specify a scale to be used:
 
 ```
-$ ./fretter.sh -oScale -sMAJOR -rC_4 -f12
+$ ./fretter.sh -oScale -sMAJOR -rC -f12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+Scale C MAJOR (standard guitar tuning)
+
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
  3 ├── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼
  7 ├── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼── 7 ──┼
@@ -214,7 +223,7 @@ Fretter v0.1.2 - Fretboard Diagram Generator
  6 ├───────┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼
  3 ├── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
 ```
 
@@ -223,12 +232,14 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 Specifying a chord is required in modes `chord` and `arpeggio`:
 
 ```
-$ ./fretter.sh -oARPEGGIO -cDOM7 -rE_4 -f12
+$ ./fretter.sh -oARPEGGIO -cDOM7 -rE -f12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+Arpeggio E DOM7 (standard guitar tuning)
+
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
  1 ├───────┼───────┼───────┼── 3 ──┼───────┼───────┼── 5 ──┼───────┼───────┼──♭7 ──┼───────┼── 1 ──┼
  5 ├───────┼───────┼──♭7 ──┼───────┼── 1 ──┼───────┼───────┼───────┼── 3 ──┼───────┼───────┼── 5 ──┼
@@ -237,7 +248,7 @@ Fretter v0.1.2 - Fretboard Diagram Generator
    ├───────┼── 5 ──┼───────┼───────┼──♭7 ──┼───────┼── 1 ──┼───────┼───────┼───────┼── 3 ──┼───────┼
  1 ├───────┼───────┼───────┼── 3 ──┼───────┼───────┼── 5 ──┼───────┼───────┼──♭7 ──┼───────┼── 1 ──┼
 
- 0     1       2       3       4       5       6       7       8       9      10      11      12   
+ 0     1       2       3       4       5       6       7       8       9      10      11      12
 
 ```
 
@@ -251,13 +262,16 @@ you specify a string index (starting with 0) and a fret index, separated by a co
 Specifying a fret only (e.g. `--position 12`) gives the algorithm all freedom to start at a string of its preference. Specifying string and fret (e.g. `--position 2,4`) limits the generation of fingerings to strings equal or greater than the starting string (2 in the example).
 
 ```
-$ ./fretter.sh -oCHORD -cDOM7 -rE_4 -p2,2
+$ ./fretter.sh -oCHORD -cDOM7 -rE -p2,2
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord E DOM7 (standard guitar tuning)
 
 Showing fingerings 1 through 1 (of 1)
 
-    2       3       4   
+    2       3       4
 
 ┼───────┼───────┼── 3 ──┼
 ┼───────┼──♭7 ──┼───────┼
@@ -266,18 +280,21 @@ Showing fingerings 1 through 1 (of 1)
 ┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼
 
-    2       3       4   
+    2       3       4
 
 ```
 
 ```
-$ ./fretter.sh -oCHORD -cDOM7 -rE_4 -p12
+$ ./fretter.sh -oCHORD -cDOM7 -rE -p12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord E DOM7 (standard guitar tuning)
 
 Showing fingerings 1 through 4 (of 49)
 
-   12      13      14   
+   12      13      14
 
 ┼── 1 ──┼───────┼───────┼
 ┼── 5 ──┼───────┼───────┼
@@ -286,10 +303,9 @@ Showing fingerings 1 through 4 (of 49)
 ┼───────┼───────┼── 5 ──┼
 ┼── 1 ──┼───────┼───────┼
 
-   12      13      14   
+   12      13      14
 
-
-   12      13      14   
+   12      13      14
 
 ┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼
@@ -298,10 +314,9 @@ Showing fingerings 1 through 4 (of 49)
 ┼───────┼───────┼── 5 ──┼
 ┼── 1 ──┼───────┼───────┼
 
-   12      13      14   
+   12      13      14
 
-
-   12      13   
+   12      13
 
 ┼── 1 ──┼───────┼
 ┼── 5 ──┼───────┼
@@ -310,10 +325,9 @@ Showing fingerings 1 through 4 (of 49)
 ┼───────┼───────┼
 ┼───────┼───────┼
 
-   12      13   
+   12      13
 
-
-    9      10      11   
+    9      10      11
 
 ┼───────┼──♭7 ──┼───────┼
 ┼── 3 ──┼───────┼───────┼
@@ -322,7 +336,7 @@ Showing fingerings 1 through 4 (of 49)
 ┼───────┼───────┼── 3 ──┼
 ┼───────┼──♭7 ──┼───────┼
 
-    9      10      11   
+    9      10      11
 
 ```
 
@@ -331,13 +345,16 @@ Showing fingerings 1 through 4 (of 49)
 In *chord* mode, very long lists of fingerings may be generated. In order to prevent flooding of the console, pagination was implemented. This option sets the result page to be shown (starting with 0):
 
 ```
-$ ./fretter.sh -oCHORD -cMAJ -rC_4 -p2,10 -g1
+$ ./fretter.sh -oCHORD -cMAJ -rC -p2,10 -g1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord C MAJ (standard guitar tuning)
 
 Showing fingerings 5 through 8 (of 11)
 
-   12      13   
+   12      13
 
 ┼── 3 ──┼───────┼
 ┼───────┼── 1 ──┼
@@ -346,10 +363,9 @@ Showing fingerings 5 through 8 (of 11)
 ┼───────┼───────┼
 ┼───────┼───────┼
 
-   12      13   
+   12      13
 
-
-    5       6       7       8   
+    5       6       7       8
 
 ┼───────┼───────┼───────┼── 1 ──┼
 ┼── 3 ──┼───────┼───────┼───────┼
@@ -358,10 +374,9 @@ Showing fingerings 5 through 8 (of 11)
 ┼───────┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼───────┼
 
-    5       6       7       8   
+    5       6       7       8
 
-
-   12      13      14   
+   12      13      14
 
 ┼── 3 ──┼───────┼───────┼
 ┼───────┼── 1 ──┼───────┼
@@ -370,10 +385,9 @@ Showing fingerings 5 through 8 (of 11)
 ┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼
 
-   12      13      14   
+   12      13      14
 
-
-   12      13      14   
+   12      13      14
 
 ┼───────┼───────┼───────┼
 ┼───────┼── 1 ──┼───────┼
@@ -382,7 +396,7 @@ Showing fingerings 5 through 8 (of 11)
 ┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼
 
-   12      13      14   
+   12      13      14
 
 ```
 
@@ -391,13 +405,16 @@ Showing fingerings 5 through 8 (of 11)
 In *chord* mode, very long lists of fingerings may be generated. In order to prevent flooding of the console, pagination was implemented. This option sets the size of result pages:
 
 ```
-$ ./fretter.sh -oCHORD -cMAJ -rC_4 -p2,10 -i2
+$ ./fretter.sh -oCHORD -cMAJ -rC -p2,10 -i2
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord C MAJ (standard guitar tuning)
 
 Showing fingerings 1 through 2 (of 11)
 
-    8       9      10   
+    8       9      10
 
 ┼── 1 ──┼───────┼───────┼
 ┼── 5 ──┼───────┼───────┼
@@ -406,10 +423,9 @@ Showing fingerings 1 through 2 (of 11)
 ┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼
 
-    8       9      10   
+    8       9      10
 
-
-    8       9      10   
+    8       9      10
 
 ┼───────┼───────┼───────┼
 ┼── 5 ──┼───────┼───────┼
@@ -418,7 +434,7 @@ Showing fingerings 1 through 2 (of 11)
 ┼───────┼───────┼───────┼
 ┼───────┼───────┼───────┼
 
-    8       9      10   
+    8       9      10
 
 ```
 
@@ -427,13 +443,16 @@ Showing fingerings 1 through 2 (of 11)
 Specifies the maximum width of a chord in `chord` mode of operation. Of course, the narrower a chord fingering you request, the less fingerings you will get.
 
 ```
-$ ./fretter.sh -oCHORD -cMAJ -rC_4 -p0,8 -w2
+$ ./fretter.sh -oCHORD -cMAJ -rC -p0,8 -w2
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord C MAJ (standard guitar tuning)
 
 Showing fingerings 1 through 2 (of 2)
 
-    8       9   
+    8       9
 
 ┼── 1 ──┼───────┼
 ┼── 5 ──┼───────┼
@@ -442,10 +461,9 @@ Showing fingerings 1 through 2 (of 2)
 ┼───────┼───────┼
 ┼───────┼───────┼
 
-    8       9   
+    8       9
 
-
-    9      10   
+    9      10
 
 ┼───────┼───────┼
 ┼───────┼───────┼
@@ -454,7 +472,7 @@ Showing fingerings 1 through 2 (of 2)
 ┼───────┼── 5 ──┼
 ┼───────┼───────┼
 
-    9      10   
+    9      10
 
 ```
 
@@ -467,13 +485,16 @@ Deviation is *in addition* to the *maximum width*. So requesting chords at posit
 Again, lower deviation means less fingerings.
 
 ```
-$ ./fretter.sh -oCHORD -cMAJ -rC_4 -p0,8 -w1 -d3
+$ ./fretter.sh -oCHORD -cMAJ -rC -p0,8 -w1 -d3
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord C MAJ (standard guitar tuning)
 
 Showing fingerings 1 through 1 (of 1)
 
-    5   
+    5
 
 ┼───────┼
 ┼── 3 ──┼
@@ -482,7 +503,7 @@ Showing fingerings 1 through 1 (of 1)
 ┼───────┼
 ┼───────┼
 
-    5   
+    5
 
 ```
 
@@ -499,33 +520,27 @@ This group of options modifies the filtering applied to the generation of finger
 |`--allow-more-than-four-frets`|Rare|Allows fingerings to contain more than 4 different frets|Advanced players may be able to use the thumb, thus allowing to fret these fingerings.|
 
 ```
-$ ./fretter.sh -oChord -cMaj -rD_4 -p0 -w2 --allow-open-strings 
-Fretter v0.1.2 - Fretboard Diagram Generator
+$ ./fretter.sh -oChord -cMaj -rD -p0 -w2 --allow-open-strings
 
-Showing fingerings 1 through 2 (of 2)
+Fretter v0.1.3 - Fretboard Diagram Generator
 
- 0           2       3   
+
+Chord D Maj (standard guitar tuning)
+
+Showing fingerings 1 through 4 (of 7)
+
+ 0           2       3
 
    ├ ··· ┼── 3 ──┼───────┼
    ├ ··· ┼───────┼── 1 ──┼
    ├ ··· ┼── 5 ──┼───────┼
  1 ├ ··· ┼───────┼───────┼
-   ├ ··· ┼───────┼───────┼
-   ├ ··· ┼───────┼───────┼
+ 5 ├ ··· ┼───────┼───────┼
+   ├ ··· ┼── 3 ──┼───────┼
 
- 0           2       3   
+ 0           2       3
 
-
-    2       3   
-
-┼── 3 ──┼───────┼
-┼───────┼── 1 ──┼
-┼── 5 ──┼───────┼
-┼───────┼───────┼
-┼───────┼───────┼
-┼───────┼───────┼
-
-    2       3   
+[...]
 
 ```
 
@@ -536,12 +551,14 @@ Specifying a start and end fret index (separated by a comma) as working window l
 This may be helpful in situations where reaching specific frets is difficult or impossible (e.g. close to the instrument body).
 
 ```
-$ ./fretter.sh -oScale -sMajor -rC_4 -m19,22
+$ ./fretter.sh -oScale -sMajor -rC -m19,22
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
-   19      20      21      22   
+Scale C Major (standard guitar tuning)
+
+   19      20      21      22
 
 ┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼
 ┼───────┼── 5 ──┼───────┼── 6 ──┼
@@ -550,7 +567,7 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 ┼── 3 ──┼── 4 ──┼───────┼── 5 ──┼
 ┼── 7 ──┼── 1 ──┼───────┼── 2 ──┼
 
-   19      20      21      22   
+   19      20      21      22
 
 ```
 
@@ -561,12 +578,14 @@ Specifying a *scale distribution pattern* by setting *notes-per-string* generate
 This option generates the common notes-per-string diagrams found in various guitar courses.
 
 ```
-$ ./fretter.sh -oScale -sMajor -rC_4 -n3 -p8
+$ ./fretter.sh -oScale -sMajor -rC -n3 -p8
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
-    8       9      10      11      12      13   
+Scale C Major (standard guitar tuning)
+
+    8       9      10      11      12      13
 
 ┼───────┼───────┼── 2 ──┼───────┼── 3 ──┼── 4 ──┼
 ┼───────┼───────┼── 6 ──┼───────┼── 7 ──┼── 1 ──┼
@@ -575,7 +594,7 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 ┼── 4 ──┼───────┼── 5 ──┼───────┼── 6 ──┼───────┼
 ┼── 1 ──┼───────┼── 2 ──┼───────┼── 3 ──┼───────┼
 
-    8       9      10      11      12      13   
+    8       9      10      11      12      13
 
 ```
 
@@ -584,12 +603,14 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 This option allows you to explicitly specify which frets are to be rendered in a diagram. Provide a start and end fret index (separated by comma) of the range to be rendered; optionally add `,open` to also render open strings:
 
 ```
-$ ./fretter.sh -oScale -sMajor -rD_4 -f12 -e1,4
+$ ./fretter.sh -oScale -sMajor -rD -f12 -e1,4
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
-    1       2       3       4   
+Scale D Major (standard guitar tuning)
+
+    1       2       3       4
 
 ├───────┼── 3 ──┼── 4 ──┼───────┼
 ├───────┼── 7 ──┼── 1 ──┼───────┼
@@ -598,18 +619,20 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 ├───────┼── 6 ──┼───────┼── 7 ──┼
 ├───────┼── 3 ──┼── 4 ──┼───────┼
 
-    1       2       3       4   
+    1       2       3       4
 
  ** WARNING: Notes exist outside the defined render window! **
 ```
 
 ```
-$ ./fretter.sh -oScale -sMajor -rD_4 -f12 -e1,4,open
+$ ./fretter.sh -oScale -sMajor -rD -f12 -e1,4,open
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
 
- 0     1       2       3       4   
+Scale D Major (standard guitar tuning)
+
+ 0     1       2       3       4
 
  2 ├───────┼── 3 ──┼── 4 ──┼───────┼
  6 ├───────┼── 7 ──┼── 1 ──┼───────┼
@@ -618,7 +641,7 @@ Fretter v0.1.2 - Fretboard Diagram Generator
  5 ├───────┼── 6 ──┼───────┼── 7 ──┼
  2 ├───────┼── 3 ──┼── 4 ──┼───────┼
 
- 0     1       2       3       4   
+ 0     1       2       3       4
 
  ** WARNING: Notes exist outside the defined render window! **
 ```
@@ -630,33 +653,37 @@ Whenever this option is used, the program will add a warning if valid frets exis
 This option will product additional information about diagram generation; currently the only useful output is generated with `-v 1` in operation mode `chord`, where the filtering details are printed:
 
 ```
-$ ./fretter.sh -oChord -cMin -rA_3 -p12 -w6 -d6 -v1
+$ ./fretter.sh -oChord -cMin -rA -p12 -w5 -d5 -v1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
 
 Creating combinations
- * Created 10266 combinations
+ * Created 50226 combinations
 Removing broken
  * Removed 0 nonviable
  * Removed 0 unfinished
-   => 10266 remaining
+   => 50226 remaining
 Removing duplicates
- * Removed 9780 duplicates
-   => 486 remaining
+ * Removed 49046 duplicates
+   => 1180 remaining
 Checking locations
- * Removed 245 with open strings
- * Removed 115 with unused (inner) strings
- * Removed 19 violating maximum width or deviation
-   => 107 remaining
+ * Removed 773 with open strings
+ * Removed 281 with unused (inner) strings
+ * Removed 3 violating maximum width or deviation
+   => 123 remaining
 Checking sanity
- * Removed 3 with more than four different frets
- * Removed 44 with duplicate pitches
- * Removed 6 with frets left of bar
- * Removed 5 with frets top left of bar
-   => 49 remaining
-Showing fingerings 1 through 4 (of 49)
+ * Removed 0 with more than four different frets
+ * Removed 20 with duplicate pitches
+ * Removed 23 with frets left of bar
+ * Removed 7 with frets top left of bar
+   => 73 remaining
 
-   12      13      14   
+Chord A Min (standard guitar tuning)
+
+Showing fingerings 1 through 4 (of 73)
+
+   12      13      14
 
 ┼───────┼───────┼───────┼
 ┼───────┼──♭3 ──┼───────┼
@@ -665,19 +692,18 @@ Showing fingerings 1 through 4 (of 49)
 ┼── 1 ──┼───────┼───────┼
 ┼───────┼───────┼───────┼
 
-   12      13      14   
+   12      13      14
 
+   12      13      14
 
-    9      10      11      12   
+┼── 5 ──┼───────┼───────┼
+┼───────┼──♭3 ──┼───────┼
+┼───────┼───────┼── 1 ──┼
+┼───────┼───────┼── 5 ──┼
+┼── 1 ──┼───────┼───────┼
+┼── 5 ──┼───────┼───────┼
 
-┼───────┼───────┼───────┼───────┼
-┼───────┼── 1 ──┼───────┼───────┼
-┼── 5 ──┼───────┼───────┼───────┼
-┼───────┼──♭3 ──┼───────┼───────┼
-┼───────┼───────┼───────┼── 1 ──┼
-┼───────┼───────┼───────┼───────┼
-
-    9      10      11      12   
+   12      13      14
 
 [...]
 ```

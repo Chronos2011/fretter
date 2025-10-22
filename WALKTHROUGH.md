@@ -10,12 +10,17 @@ We want to create simple fingerings without big position changes. Also, we aim f
 
 ## A fingering for A minor
 
-In order to produce a fingering for A minor, we must run *fretter* in `chord` mode of operation with `--operation Chord`. There are some options in `chord` mode which are mandatory, obviously the root pitch and the type of chord. So we must add `--root A_3` to indicate a chord on *A*; the octave index `3` does not have an effect and we will shortly see, how to affect the position. Additionally, we must add `--chord Min` for a *minor chord*. Running *fretter* with these options will still not be sufficient, because it would find more than 100 potential fingerings, even though multiple sanity checks and filters are enabled by default. We must hint the algorithm to where we want to find a chord with the `--position 12` parameter setting, asking for fingerings around 12th fret:
+In order to produce a fingering for A minor, we must run *fretter* in `chord` mode of operation with `--operation Chord`. There are some options in `chord` mode which are mandatory, obviously the root pitch class and the type of chord. So we must add `--root A` to indicate a chord on *A*. Additionally, we must add `--chord minor` for a *minor chord*.
+
+Running *fretter* with these options will still not be sufficient, because it would find more than a hundred potential fingerings, even though multiple sanity checks and filters are enabled by default. We must hint the algorithm to where we want to find a chord with the `--position 12` parameter setting, asking for fingerings around 12th fret:
 
 ```
-$ ./fretter.sh --operation Chord --root A_3 --chord Min --position 12
+$ ./fretter.sh --operation Chord --root A --chord minor --position 12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord A minor (standard guitar tuning)
 
 Showing fingerings 1 through 4 (of 38)
 
@@ -30,7 +35,6 @@ Showing fingerings 1 through 4 (of 38)
 
    12      13      14
 
-
    12      13      14
 
 ┼── 5 ──┼───────┼───────┼
@@ -42,7 +46,6 @@ Showing fingerings 1 through 4 (of 38)
 
    12      13      14
 
-
     9      10      11      12
 
 ┼───────┼───────┼───────┼───────┼
@@ -53,7 +56,6 @@ Showing fingerings 1 through 4 (of 38)
 ┼───────┼───────┼───────┼───────┼
 
     9      10      11      12
-
 
    12      13      14
 
@@ -73,9 +75,12 @@ Showing fingerings 1 through 4 (of 38)
 The algorithm finds a total of 38 fingerings, which is quite a range to choose from. The result is separated into pages and we can select individual pages by adding `--page <number>` (page numbers starting with 0) and item count on a page with `--item-count <count>`:
 
 ```
-$ ./fretter.sh --operation Chord --root A_3 --chord Min --position 12 --page 2 --item-count 2
+$ ./fretter.sh --operation Chord --root A --chord minor --position 12 --page 2 --item-count 2
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord A minor (standard guitar tuning)
 
 Showing fingerings 5 through 6 (of 38)
 
@@ -89,7 +94,6 @@ Showing fingerings 5 through 6 (of 38)
 ┼───────┼───────┼── 5 ──┼
 
    10      11      12
-
 
    12      13      14
 
@@ -106,12 +110,15 @@ Showing fingerings 5 through 6 (of 38)
 
 ## Nailing down the chords with additional options
 
-Back to our result from `--operation Chord --root A_3 --chord Min --position 12`: we received a total of 38 fingerings, so we can be generous and add more requirements to our fingerings search. First, we want to restrict the *maximum width* of a fingering to 3 frets with `--width 3`; second, we insist on *position* 12 by specifying `--deviation 0`, indicating that we want to deviate at most 0 frets from the position:
+Back to our result from `--operation Chord --root A --chord minor --position 12`: we received a total of 38 fingerings, so we can be generous and add more requirements to our fingerings search. First, we want to restrict the *maximum width* of a fingering to 3 frets with `--width 3`; second, we insist on *position* 12 by specifying `--deviation 0`, indicating that we want to deviate at most 0 frets from the position:
 
 ```
-$ ./fretter.sh --operation Chord --root A_3 --chord Min --position 12 --width 3 --deviation 0
+$ ./fretter.sh --operation Chord --root A --chord minor --position 12 --width 3 --deviation 0
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord A minor (standard guitar tuning)
 
 Showing fingerings 1 through 4 (of 7)
 
@@ -126,7 +133,6 @@ Showing fingerings 1 through 4 (of 7)
 
    12      13      14
 
-
    12      13      14
 
 ┼── 5 ──┼───────┼───────┼
@@ -138,7 +144,6 @@ Showing fingerings 1 through 4 (of 7)
 
    12      13      14
 
-
    12      13      14
 
 ┼── 5 ──┼───────┼───────┼
@@ -149,7 +154,6 @@ Showing fingerings 1 through 4 (of 7)
 ┼───────┼───────┼───────┼
 
    12      13      14
-
 
    10      11      12
 
@@ -181,12 +185,15 @@ For our example, we choose the (high-pitched) third fingering presented:
 
 ## What about other tunings? And instruments?
 
-As you may have noticed, the fingerings produced were for a guitar in standard tuning, which is the default of *fretter*. You can select a different *tuning* (and thereby implicitly another instrument, see also `--fret-count`), e.g. for a ukulele with `--tuning Standard_ukulele`:
+As you may have noticed, the fingerings produced were for a guitar in standard tuning, which is the default of *fretter*. You can select a different *tuning* (and thereby implicitly another instrument, see also `--fret-count`), e.g. for a ukulele with `--tuning "standard ukulele"`:
 
 ```
-$ ./fretter.sh --operation Chord --root A_3 --chord Min --position 12 --width 3 --deviation 0 --tuning Standard_ukulele
+$ ./fretter.sh --operation Chord --root A --chord minor --position 12 --width 3 --deviation 0 --tuning "standard ukulele"
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord A minor (standard ukulele tuning)
 
 Showing fingerings 1 through 2 (of 2)
 
@@ -199,7 +206,6 @@ Showing fingerings 1 through 2 (of 2)
 
    12
 
-
    12      13      14
 
 ┼───────┼───────┼───────┼
@@ -211,22 +217,25 @@ Showing fingerings 1 through 2 (of 2)
 
 ```
 
-(This is an example - position 12 probably wouldn't make much sense on ukulele).
+Please take note that whenever a named option such as `standard ukulele` contains whitespace, we must put it into double quotes. (Also note this is an example - position 12 probably wouldn't make much sense on ukulele.)
 
 ## A fingering for G major
 
 Back to our original example and building on what we have learned so far, we ask for a G major fingering now:
 
 ```
-$ ./fretter.sh --operation Chord --root G_3 --chord Maj --position 12 --width 3 --deviation 0
+$ ./fretter.sh --operation Chord --root G --chord major --position 12 --width 3 --deviation 0
 ```
 
 Remember to watch out for result pages, because we found the most interesting fingering on `--page 1`:
 
 ```
-$ ./fretter.sh --operation Chord --root G_3 --chord Maj --position 12 --width 3 --deviation 0 --page 1
+$ ./fretter.sh --operation Chord --root G --chord major --position 12 --width 3 --deviation 0 --page 1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord G major (standard guitar tuning)
 
 Showing fingerings 5 through 7 (of 7)
 
@@ -249,9 +258,12 @@ Showing fingerings 5 through 7 (of 7)
 Entering all those option names becomes tedious; fortunately, short option names exist for most options. We can shorten the last command to:
 
 ```
-$ ./fretter.sh -oChord -rG_3 -cMaj -p12 -w3 -d0 -g1
+$ ./fretter.sh -oChord -rG -cMaj -p12 -w3 -d0 -g1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord G Maj (standard guitar tuning)
 
 Showing fingerings 5 through 7 (of 7)
 
@@ -273,24 +285,32 @@ We tried to make the short option names catchy so that they can be remembered ea
 
 ## Listing chord types (and other option names) available
 
-How did we get to the chord type names `Min` and `Maj` in the first place? You can list all named options (*tunings*, *scales*, *chords*, *pitches*, and (fret) *labels*) with the `--list <option>` option, e.g. as of version *0.1.2* the following chord types are available:
+How did we get to the chord type names `minor`, `major`, and `Maj` in the first place? You can list all named options (*tunings*, *scales*, *chords*, *pitches*, and (fret) *labels*) with the `--list <option>` option, e.g. as of version *0.1.3* the following chord types are available:
 
 ```
 $ ./fretter.sh --list Chord
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
-Chord: ADD2, ADD4, ADD6, ALPHA, AUG, AUG7, AUG_MAJ7, BETA, DIM, DIM7, DOM7, DOM7_DIM5, DREAM, GAMMA, MAJ, MAJ7, MAJ76, MIN, MIN7, MIN7_DIM5, MIN_ADD2, MIN_ADD6, MIN_DIM5_MAJ7, MIN_MAJ7, MIN_MIN6, POW4, POW5, SUS2, SUS4, VIENNESE_INVERSE, VIENNESE_PRIME
+
+Chord: add fourth, add second, add sixth, add2, add4, add6, alpha, aug, aug maj7, aug7, augmented, augmented major seventh, augmented seventh, beta, dim, dim7, diminished, diminished seventh, dom7, dom7 dim5, dominant seventh, dominant seventh diminished fifth, dream, gamma, maj, maj7, maj7/6, major, major seventh, major seventh add 6, min, min add2, min add6, min dim5 maj7, min maj7, min min6, min7, min7 dim5, minor, minor add second, minor add sixth, minor diminished fifth major seventh, minor major seventh, minor minor sixth, minor seventh, minor seventh diminished fifth, pow4, pow5, power fifth, power fourth, sus2, sus4, suspended fourth, suspended second, viennese inverse, viennese prime
+
+ * Named options that contain multiple words must be enclosed in "double quotes" *
 ```
+
+Note that upper or lower case letters in named options are both accepted; the original option name will be added to the diagram, though, giving you some limited influence on title generation.
 
 ## A fingering for F major
 
-We did not find a fingering matching our demands with `-oChord -cMaj -rF_3 -p12 -w3 -d0` and decided to release requirements a little:
+Continuing on what we learned, we tried `-oChord -cMaj -rF -p12 -w3 -d0`, but unfortunately we did not find a fingering matching our demands. So we decided to release requirements a little:
 
 ```
-$ ./fretter.sh -o Chord -c Maj -r F_3 -p12 -w3 -d2 -g1
+$ ./fretter.sh -oChord -cMaj -rF -p12 -w3 -d2 -g1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord F Maj (standard guitar tuning)
 
 Showing fingerings 5 through 8 (of 16)
 
@@ -314,9 +334,10 @@ Showing fingerings 5 through 8 (of 16)
 Finding a specialized chord for a specific use can be a tough business. Sometimes it is worth checking what filtering the fingering generation algorithm applied with `--verbose 1`:
 
 ```
-$ ./fretter.sh -o Chord -c Maj -r F_3 -p12 -w3 -d2 -v1
+$ ./fretter.sh -oChord -cMaj -rF -p12 -w3 -d2 -v1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
 
 Creating combinations
  * Created 1386 combinations
@@ -338,7 +359,12 @@ Checking sanity
  * Removed 0 with frets left of bar
  * Removed 2 with frets top left of bar
    => 16 remaining
+
+Chord F Maj (standard guitar tuning)
+
 Showing fingerings 1 through 4 (of 16)
+
+[...]
 ```
 
 ## Modifying results filtering
@@ -350,9 +376,12 @@ We won't cover sanity checks here, see the [Option reference](REFERENCE.md) for 
 Interestingly, we see that 28 and 32 fingerings were removed due to open and unused (inner) strings respectively. Maybe, we find some interesting chords by undoing these filters with `--allow-open-strings` and `--allow-unused-strings`:
 
 ```
-$ ./fretter.sh -oChord -cMaj -rF_3 -p12 -w3 -d2 --allow-open-strings --allow-unused-strings
+$ ./fretter.sh -oChord -cMaj -rF -p12 -w3 -d2 --allow-open-strings --allow-unused-strings
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord F Maj (standard guitar tuning)
 
 Showing fingerings 1 through 4 (of 72)
 
@@ -377,13 +406,16 @@ In the first fingering already, we find an open string (A string) and an unused 
 Finding open string fingerings for the *E7* yields much more fingerings so that we can even reduce to `--width 2` and `--deviation 0`:
 
 ```
-$ ./fretter.sh -oChord -cDom7 -rE_3 -p2,12 -w2 d0 --allow-open-strings --allow-unused-strings -g1
+$ ./fretter.sh -oChord -cDom7 -rE -p2,12 -w2 d0 --allow-open-strings --allow-unused-strings -g1
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord E Dom7 (standard guitar tuning)
 
 Showing fingerings 5 through 8 (of 9)
 
- [...]
+[...]
 
  0          12      13
 
@@ -403,13 +435,15 @@ We have now found the four fingerings we needed for our example progression *Am*
 
 ## Charting the fretboard with A aeolian
 
-Now that we have the fingerings for our *chord* progression, we will look at some diagrams for the purpose of soloing. Displaying *scale* notes on the fretboard requires *operation* `scale`. Again, mandatory options must be filled, in case of `scale` these are `--scale <scale>` and `--root <pitch>`:
+Now that we have the fingerings for our *chord* progression, we will look at some diagrams for the purpose of soloing. Displaying *scale* notes on the fretboard requires *operation* `scale`. Again, mandatory options must be filled, in case of `scale` these are `--scale <scale>` and `--root <pitch-class>`:
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3
+$ ./fretter.sh -oScale -sAEOLIAN -rA
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
  0     1       2       3       4       5       6       7       8       9      10      11      12      13      14      15      16      17      18      19      20      21      22      23      24
 
@@ -421,6 +455,7 @@ Fretter v0.1.2 - Fretboard Diagram Generator
  5 ├──♭6 ──┼───────┼──♭7 ──┼───────┼── 1 ──┼───────┼── 2 ──┼──♭3 ──┼───────┼── 4 ──┼───────┼── 5 ──┼──♭6 ──┼───────┼──♭7 ──┼───────┼── 1 ──┼───────┼── 2 ──┼──♭3 ──┼───────┼── 4 ──┼───────┼── 5 ──┼
 
  0     1       2       3       4       5       6       7       8       9      10      11      12      13      14      15      16      17      18      19      20      21      22      23      24
+
 ```
 
 ## Limiting board size
@@ -430,10 +465,12 @@ As we can see, this produces a huge, 24 fretsboard which is quite unwieldy in th
 (1) Explicitly setting the *fretboard size* with `--fret-count <count>` might help in situations where you're just interested in the lower part of the fretboard. (It would most probably be wrong in `--operation Chord` because it would limit the options available for the fingerings generation algorithm):
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -f12
+$ ./fretter.sh -oScale -sAEOLIAN -rA -f12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
  0     1       2       3       4       5       6       7       8       9      10      11      12
 
@@ -451,10 +488,12 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 (2) To solve the issue from last section, we could employ a *render window* with `--render-window <window>`. But since *notes* would be outside the *render window*, the tool will warn us that there are additional notes which are now hidden:
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -e10,17
+$ ./fretter.sh -oScale -sAEOLIAN -rA -e10,17
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
    10      11      12      13      14      15      16      17
 
@@ -473,10 +512,12 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 (3) Alternatively, we could set a *working window* with `--working-window <window>` for the `scale` operation, limiting *scale* generation to this very range (but now we're ourselves responsible to span the correct window containing all notes):
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -m12,15
+$ ./fretter.sh -oScale -sAEOLIAN -rA -m12,15
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
    12      13      14      15
 
@@ -494,10 +535,12 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 This functionality is used to produce specific diagrams in situations where more control is required (and mostly in combination with a *render window*):
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -e10,17 -m12,15
+$ ./fretter.sh -oScale -sAEOLIAN -rA -e10,17 -m12,15
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
    10      11      12      13      14      15      16      17
 
@@ -515,10 +558,12 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 (4) Finally, using a *distribution pattern* with `--notes-per-string <count>` and `--position <position>` creates the skewed *scale* patterns we're used to from guitar courses in traditional media and online:
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -n3 -p12
+$ ./fretter.sh -oScale -sAEOLIAN -rA -n3 -p12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
    12      13      14      15      16      17
 
@@ -540,10 +585,12 @@ Note that the diagram starts at the *position* given and distributes notes upwar
 In this specific situation, if we wanted to start it on a root note, we could additionally specify a string index (starting at 0), to exactly hit the root note with `--position 1,12` (no whitespace allowed):
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -n3 -p1,12
+$ ./fretter.sh -oScale -sAEOLIAN -rA -n3 -p1,12
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
    12      13      14      15      16      17
 
@@ -563,10 +610,11 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 Finally, we can change the *fret labeling* with `--label <label>`, for example to render *scale membership* or *note names*:
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -n3 -p1,12 -aSCALE_MEMBERSHIP
+$ ./fretter.sh -oScale -sAEOLIAN -rA -n3 -p1,12 -aSCALE_MEMBERSHIP
+Fretter v0.1.3 - Fretboard Diagram Generator
 
-Fretter v0.1.2 - Fretboard Diagram Generator
 
+Scale A AEOLIAN (standard guitar tuning)
 
    12      13      14      15      16      17
 
@@ -582,10 +630,12 @@ Fretter v0.1.2 - Fretboard Diagram Generator
 ```
 
 ```
-$ ./fretter.sh -oScale -sAEOLIAN -rA_3 -n3 -p1,12 -aNOTE_NAME
+$ ./fretter.sh -oScale -sAEOLIAN -rA -n3 -p1,12 -aNOTE_NAME
 
-Fretter v0.1.2 - Fretboard Diagram Generator
+Fretter v0.1.3 - Fretboard Diagram Generator
 
+
+Scale A AEOLIAN (standard guitar tuning)
 
    12      13      14      15      16      17
 

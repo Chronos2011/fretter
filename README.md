@@ -26,7 +26,7 @@ This section lists currently implemented, planned and rejected features, providi
     * Scale
     * Arpeggio
     * Chord
-* Selection of instrument tuning, currently 12 options
+* Selection of instrument tuning, currently 8 (16 with alternative names) options
 * Configurable fretboard size
 * Render options:
     * Configurable render window
@@ -35,22 +35,23 @@ This section lists currently implemented, planned and rejected features, providi
         * MIDI pitch
         * Note name
         * Interval symbol
-        * Interval half steps
+        * Interval steps (half tones)
         * Scale membership
+    * Alternative naming option
 * Scale mode:
-    * Selection of scale, currently 52 options
-    * Selection of pitch, currently 181 options (only 12 relevant, though)
+    * Selection of scale, currently 45 (54 with alternative names) options
+    * Selection of pitch class, currently 21 options
     * Configurable position in "Patterned" sub-mode
     * Sub-modes:
         * Fretboard: shows all occurences of in-scale frets
         * Windowed: shows all occurences of in-scale frets in a fixed window
-        * Patterned: finds and shows common scale patterns (i.e. 2 or 3 notes per string)
+        * Patterned: finds and shows common scale patterns (e.g. 2 or 3 notes per string)
 * Arpeggio mode:
     * Selection of chord, currently 31 options
-    * Selection of pitch, currently 181 options (only 12 relevant, though)
+    * Selection of pitch class, currently 21 options
 * Chord mode:
     * Selection of chord, currently 31 options
-    * Selection of pitch, currently 181 options
+    * Selection of pitch class, currently 21 options
     * Configurable position
     * Configurable maximum position deviation
     * Configurable maximum chord width
