@@ -104,9 +104,54 @@ The release zip file is self-contained, no installation is required. Simply extr
 
 Alternatively, simply clone from GitHub and run wither `fretter.sh` or `fretter.bat` from the root folder.
 
+### Example at a glance
+
+This section provides an example at a glance. Please check the [Walkthrough](WALKTHROUGH.md) or the [Option reference](REFERENCE.md) for more information.
+
+```
+$ ./fretter.sh -oChord -cMin7 -rE -p2,12 -w1
+
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Chord E Min7 (standard guitar tuning)
+
+Showing fingerings 1 through 1 (of 1)
+
+   12
+
+┼── 1 ──┼
+┼── 5 ──┼
+┼──♭3 ──┼
+┼──♭7 ──┼
+┼───────┼
+┼───────┼
+
+   12
+
+$ ./fretter.sh -oScale -sMinor -rE -p12 -n3
+
+Fretter v0.1.3 - Fretboard Diagram Generator
+
+
+Scale E Minor (standard guitar tuning)
+
+   12      13      14      15      16      17
+
+┼───────┼───────┼── 2 ──┼──♭3 ──┼───────┼── 4 ──┼
+┼───────┼──♭6 ──┼───────┼──♭7 ──┼───────┼── 1 ──┼
+┼──♭3 ──┼───────┼── 4 ──┼───────┼── 5 ──┼───────┼
+┼──♭7 ──┼───────┼── 1 ──┼───────┼── 2 ──┼───────┼
+┼── 4 ──┼───────┼── 5 ──┼──♭6 ──┼───────┼───────┼
+┼── 1 ──┼───────┼── 2 ──┼──♭3 ──┼───────┼───────┼
+
+   12      13      14      15      16      17
+
+```
+
 ## A simple walkthrough
 
-For a hands-on introduction to *fretter*, check out our [walkthrough](WALKTHROUGH.md). It presents the main features of *fretter*; walking through this big example should give you a descent understanding of the tool.
+For a hands-on introduction to *fretter*, check out our [Walkthrough](WALKTHROUGH.md). It presents the main features of *fretter*; walking through this big example should give you a descent understanding of the tool.
 
 ## Option reference
 
