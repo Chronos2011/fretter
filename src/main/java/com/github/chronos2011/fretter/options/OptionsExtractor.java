@@ -221,7 +221,7 @@ public class OptionsExtractor {
         } else if (!hasPosition && !hasNotesPerString && hasWorkingWindow) {
             scaleOptions.window = (FretWindow) getFretWindow("working-window");
         } else if (hasPosition || hasNotesPerString || hasWorkingWindow) {
-            throw new DomainException("Provide either /*  */'position' and 'notes-per-string' or 'working-window' or none");
+            throw new DomainException("Provide either 'position' and 'notes-per-string' or 'working-window' or none");
         }
         return scaleOptions;
     }
