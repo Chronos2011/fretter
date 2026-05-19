@@ -15,8 +15,13 @@ public enum Chord implements Nameable {
 	 * Intervals are generated automatically from constant name; constant names must be composed of a list of steps (use
 	 * 'N' for 0, 'T' for 10, 'E' for 11).
 	 */
-	N5("power fourth", ul("pow4")),
-	N7("power fifth", ul("pow5")),
+	N1("minor second", ul("min2")),
+	N2("major second", ul("2", "maj2")),
+	N3("minor third", ul("min3")),
+	N4("major third", ul("3", "maj3")),
+	N5("fourth", ul("4", "pow4")),
+	N6("diminished fifth", ul("augmented fourth", "aug4", "dim5")),
+	N7("fifth", ul("5", "pow5")),
 	N16("viennese prime", ul()),
 	N27("suspended second", ul("sus2")),
 	N36("diminished", ul("dim")),
@@ -28,6 +33,7 @@ public enum Chord implements Nameable {
 	N237("minor add second", ul("min add2")),
 	N247("add second", ul("add2")),
 	N347("alpha", ul()),
+	N357("minor add fourth", ul("min add4")),
 	N369("diminished seventh", ul("dim7")),
 	N36T("minor seventh diminished fifth", ul("min7 dim5")),
 	N36E("minor diminished fifth major seventh", ul("min dim5 maj7")),
@@ -37,7 +43,7 @@ public enum Chord implements Nameable {
 	N37E("minor major seventh", ul("min maj7")),
 	N457("add fourth", ul("add4")),
 	N46T("dominant seventh diminished fifth", ul("dom7 dim5")),
-	N479("add sixth", ul("add6")),
+	N479("sixth", ul("6", "add sixth", "add6")),
 	N47T("dominant seventh", ul("dom7")),
 	N47E("major seventh", ul("maj7")),
 	N48T("augmented seventh", ul("aug7")),
